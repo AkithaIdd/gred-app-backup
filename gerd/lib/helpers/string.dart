@@ -27,7 +27,8 @@ const String SALES_ORDER = "Sales Order";
 const String purchase_order = "Good Rec./Pur. Order";
 const String settings_server_details = "Server Details";
 const String settings_remember = "Remember";
-const String APP_NAME = "Test APP";
+const String APP_NAME = "GERD APP";
+const String REGISTER = "Register";
 
 //common
 const String authPassword = "12345";

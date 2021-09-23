@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gerd/view/dashboard_new.dart';
+import 'package:gerd/view/register.dart';
 import 'package:gerd/view/view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,6 +45,8 @@ class Login extends StatelessWidget {
         'settings': (context) => SettingsView(),
         'settingsServerDetails': (context) => SettingsServerDetails(),
         'settingsRemember': (context) => SettingsRemember(),
+        'register': (context) => RegisterPage(),
+        'dashboard_new': (context) => Dashboard(),
       },
     );
   }

@@ -1,17 +1,14 @@
-import 'dart:convert';
-
-import 'package:get_it/get_it.dart';
-import 'package:gerd/helpers/helpers.dart';
-import 'package:gerd/model/login_request.dart';
-import 'package:gerd/model/login_model.dart';
-import 'package:gerd/service/login_service.dart';
-import 'package:gerd/view/view.dart';
-import 'package:gerd/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:gerd/helpers/helpers.dart';
+import 'package:gerd/model/login_model.dart';
+import 'package:gerd/model/login_request.dart';
+import 'package:gerd/service/login_service.dart';
+import 'package:gerd/view/view.dart';
+import 'package:gerd/widgets/widgets.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -19,9 +16,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-
   LoginService get service => GetIt.I<LoginService>();
   LoginResponse loginResponse;
+
   // CompanyResponse _companyResponse;
   bool rememberUser = true;
   bool rememberPassword = true;
@@ -29,7 +26,6 @@ class _LoginViewState extends State<LoginView> {
   String password;
   ShowToast toast = new ShowToast();
   var _isLoading = false;
-
 
   // DBProvider databaseHelper = DBProvider();
 
@@ -47,18 +43,14 @@ class _LoginViewState extends State<LoginView> {
     rememberUser = Preference.getBool('rememberUser') ?? true;
     rememberPassword = Preference.getBool('rememberPassword') ?? true;
     userName = Preference.getString('username') ?? 'B01';
-    password = Preference.getString('password')  ?? 'abc@123';
+    password = Preference.getString('password') ?? 'abc@123';
 
     _usernameController.text = userName;
     _passwordController.text = password;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
-
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -69,85 +61,136 @@ class _LoginViewState extends State<LoginView> {
           Container(
             height: 12,
             decoration: BoxDecoration(
-              color: primary,
+              color: primaryLight,
             ),
           ),
           SizedBox(
-            height: 80,
+            height: 50,
           ),
           Center(
-              child: Column(
-                children: [
-                  Image(
-                    image: AssetImage('assets/logo.png'),
-                    fit: BoxFit.contain,
-                    width: size.width-60,
+            child: Column(
+              children: [
+                Image(
+                  image: AssetImage('assets/logo.png'),
+                  width: 120,
+                  height: 200,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    APP_NAME,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                         bottom: 16),
-                    child: Text(
-                      APP_NAME,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold),
+                ),
+                TextInputWithIcon(
+                    icon: FontAwesomeIcons.solidUser,
+                    hint: ENTER_YOUR_USERNAME,
+                    inputType: TextInputType.name,
+                    inputAction: TextInputAction.next,
+                    textEditingController: _usernameController),
+                TextInputWithIcon(
+                    icon: FontAwesomeIcons.lock,
+                    hint: ENTER_YOUR_PASSWORD,
+                    inputType: TextInputType.visiblePassword,
+                    inputAction: TextInputAction.done,
+                    textEditingController: _passwordController),
+                SizedBox(
+                  height: 20,
+                ),
+                Button(
+                  buttonName: 'LOGIN',
+                  onTap: () {
+                    Navigator.pushNamed(context, 'dashboard_new');
+                    // pressedLoginBtn();
+                    // Navigator.pushNamed(context, 'dashboard');
+                    // String username = "dynslnbc\\mobAdmin";
+                    // toast.showToast(username);
+                  },
+                  widthInc: 0.9,
+                  heightInc: 0.07,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      value: rememberUser,
+                      onChanged: (value) {
+                        setState(() async {
+                          rememberUser = value;
+                          Preference.setBool('rememberUser', null);
+                        });
+                      },
                     ),
-                  ),
-
-                  TextInputWithIcon(
-                      icon: FontAwesomeIcons.solidUser,
-                      hint: ENTER_YOUR_USERNAME,
-                      inputType: TextInputType.name,
-                      inputAction: TextInputAction.next,
-                      textEditingController: _usernameController),
-                  TextInputWithIcon(
-                      icon: FontAwesomeIcons.lock,
-                      hint: ENTER_YOUR_PASSWORD,
-                      inputType: TextInputType.visiblePassword,
-                      inputAction: TextInputAction.done,
-                      textEditingController: _passwordController),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Button(
-                    buttonName: 'SIGN IN',
-                    onTap: () {
-                      // Navigator.pushNamed(context, 'dashboard');
-                      pressedLoginBtn();
-                      // Navigator.pushNamed(context, 'dashboard');
-                      // String username = "dynslnbc\\mobAdmin";
-                      // toast.showToast(username);
-                    },
-                    widthInc: 0.9,
-                    heightInc: 0.07,
-                  ),
-                ],
-              ),
+                    Text(
+                      REMEMBER_PASSWORD,
+                      style: smallTextBlackStyle,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'New User?  ',
+                      style: smallTextBlackStyle,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'register');
+                      },
+                      child:
+                          Text('Register', style: smallTextUnderLineBlackStyle),
+                    )
+                  ],
+                )
+              ],
             ),
+          ),
           Spacer(),
           Container(
-            alignment: Alignment.bottomCenter,
-            height: 55,
-            decoration: BoxDecoration(
-              color: primary,
-            ),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: ButtonWithColor(
-                  buttonName: 'Settings',
-                  onTap: () {
-                    Navigator.pushNamed(context, 'settings');
-                  },
-                  widthInc: 0.3,
-                  heightInc: 0.054,
-                  color: heinkenBlue
+            padding: EdgeInsets.only(right: 20,left: 20),
+            height: 50,
+            decoration: BoxDecoration(color: primaryLight),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Version 1.0.2',
+                  style: middleTextBlackStyle,
                 ),
-              ),
+                Text(
+                  'Forgot Password?',
+                  textAlign: TextAlign.center,
+                  style: middleTextBlackStyle,
+
+                )
+              ],
             ),
           )
+          // Container(
+          //   alignment: Alignment.bottomCenter,
+          //   height: 55,
+          //   decoration: BoxDecoration(
+          //     color: primaryLight,
+          //   ),
+          //   child: Align(
+          //     alignment: Alignment.centerLeft,
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(left: 16.0),
+          //       child: ButtonWithColor(
+          //           buttonName: 'Settings',
+          //           onTap: () {
+          //             Navigator.pushNamed(context, 'settings');
+          //           },
+          //           widthInc: 0.3,
+          //           heightInc: 0.054,
+          //           color: heinkenBlue),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );
@@ -160,19 +203,19 @@ class _LoginViewState extends State<LoginView> {
 
     if (_usernameController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
-      final loginRequest = LoginRequest(password: _passwordController.text,
+      final loginRequest = LoginRequest(
+          password: _passwordController.text,
           userName: _usernameController.text);
 
       if (rememberUser) {
         Preference.setString('username', loginRequest.userName);
-      }else{
+      } else {
         Preference.setString('username', '');
       }
 
-
-      if(rememberPassword){
+      if (rememberPassword) {
         Preference.setString('password', loginRequest.password);
-      }else{
+      } else {
         Preference.setString('password', '');
       }
 
@@ -186,23 +229,21 @@ class _LoginViewState extends State<LoginView> {
 
       // if(loginResponse.navUrlList[0].password == loginRequest.password &&
       //     loginResponse.navUrlList[0].dsrNo.toLowerCase() == loginRequest.userName.toLowerCase()){
-        // UserDbHandler userDbHandler = new UserDbHandler();
-        // // userDbHandler.open();
-        // bool isExitUser = await userDbHandler.isUserExist(loginResponse.navUrlList[0].dsrNo);
+      // UserDbHandler userDbHandler = new UserDbHandler();
+      // // userDbHandler.open();
+      // bool isExitUser = await userDbHandler.isUserExist(loginResponse.navUrlList[0].dsrNo);
 
-        // int result = 0;
-        // if(!isExitUser){
-        //   result = await userDbHandler.insertUser(loginResponse.navUrlList[0]);
-        // }
+      // int result = 0;
+      // if(!isExitUser){
+      //   result = await userDbHandler.insertUser(loginResponse.navUrlList[0]);
+      // }
 
-
-        // DBProvider _dbProvider = new DBProvider();
-        //
-        // int result = await _dbProvider.insertUser(loginResponse.navUrlList[0]);
-        // if(isExitUser || result != 0){
-          gotoNext();
-        // }
-
+      // DBProvider _dbProvider = new DBProvider();
+      //
+      // int result = await _dbProvider.insertUser(loginResponse.navUrlList[0]);
+      // if(isExitUser || result != 0){
+      gotoNext();
+      // }
 
       // }else{
       //   Navigator.pop(context, false);

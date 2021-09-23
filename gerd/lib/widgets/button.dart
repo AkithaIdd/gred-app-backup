@@ -19,7 +19,7 @@ class Button extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
-        color: accentColor,
+        color: primaryDark,
         borderRadius: BorderRadius.circular(0),
       ),
       height: size.height * heightInc,

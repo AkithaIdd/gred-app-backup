@@ -85,6 +85,15 @@ const TextStyle smallTextBlackStyle = TextStyle(
   fontSize: 14,
 );
 
+const TextStyle smallTextUnderLineBlackStyle = TextStyle(
+  color: Colors.black,
+  fontWeight: FontWeight.w500,
+  decoration: TextDecoration.underline,
+  fontFamily: 'Heiniken',
+  letterSpacing: 0.5,
+  fontSize: 14,
+);
+
 const TextStyle verySmallTextBlackStyle = TextStyle(
   color: Colors.black,
   fontWeight: FontWeight.w500,
