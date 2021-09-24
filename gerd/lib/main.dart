@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gerd/view/add_patient_view.dart';
 import 'package:gerd/view/dashboard_new.dart';
 import 'package:gerd/view/register.dart';
 import 'package:gerd/view/view.dart';
@@ -47,6 +48,7 @@ class Login extends StatelessWidget {
         'settingsRemember': (context) => SettingsRemember(),
         'register': (context) => RegisterPage(),
         'dashboard_new': (context) => Dashboard(),
+        'addPatient': (context) => AddPatient(),
       },
     );
   }

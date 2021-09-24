@@ -11,7 +11,8 @@ class TextInputWithIcon extends StatelessWidget {
     @required this.hint,
     this.inputType,
     this.inputAction,
-    this.textEditingController
+    this.textEditingController,
+    this.onTap,
   }) : super(key: key);
 
   final IconData icon;
@@ -19,6 +20,7 @@ class TextInputWithIcon extends StatelessWidget {
   final TextInputType inputType;
   final TextInputAction inputAction;
   final TextEditingController textEditingController;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class TextInputWithIcon extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
+
         height: size.height * 0.06,
         width: size.width * 0.9,
         decoration: BoxDecoration(
@@ -34,6 +37,8 @@ class TextInputWithIcon extends StatelessWidget {
         ),
         child: Center(
           child: TextField(
+
+            onTap: onTap,
             obscuringCharacter: "*",
             controller: textEditingController,
             decoration: InputDecoration(

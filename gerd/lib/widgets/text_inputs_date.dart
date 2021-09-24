@@ -1,10 +1,11 @@
+import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-class TextInputN extends StatelessWidget {
-  const TextInputN({
+class TextInputDate extends StatelessWidget {
+  const TextInputDate({
     Key key,
     @required this.hint,
     this.inputType,
@@ -17,6 +18,7 @@ class TextInputN extends StatelessWidget {
     this.setDate,
     this.readonly,
     this.labelText,
+    this.icon,
   }) : super(key: key);
 
   final String hint;
@@ -30,6 +32,7 @@ class TextInputN extends StatelessWidget {
   final Function setDate;
   final bool readonly;
   final String labelText;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +51,22 @@ class TextInputN extends StatelessWidget {
           controller: textEditingController,
           decoration: InputDecoration(
             labelText: labelText,
+            suffixIcon: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Icon(
+                icon,
+                size: 18,
+                color: iconColor,
+              ),
+            ),
+            // prefixIcon: Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            //   child: Icon(
+            //     icon,
+            //     size: 18,
+            //     color: iconColor,
+            //   ),
+            // ),
             contentPadding: EdgeInsets.only(top: 8,left: 8),
             enabledBorder: const OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey, width: 0.0),
