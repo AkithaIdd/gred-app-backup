@@ -5,6 +5,7 @@ class PatientTest {
   final String name;
   final int age;
   final int phone;
+  final DateTime dob;
   // final DateTime testDate;
   // final int ageOfOnset;
   // final double damageLength;
@@ -15,6 +16,7 @@ class PatientTest {
     @required this.name,
     @required this.age,
     @required this.phone,
+    @required this.dob,
     // @required this.testDate,
     // @required this.ageOfOnset,
     // @required this.damageLength,

@@ -141,77 +141,21 @@ class _DashboardState extends State<Dashboard> {
               ),
               // PatientList(patients),
               NewPatientList(),
-              // Column(
-              //   children: patients.map((tx) {
-              //     return Container(
-              //       // padding: EdgeInsets.only(top: 2.5,bottom: 2.5,right: 5,left: 5),
-              //       width: double.infinity,
-              //
-              //       child:
-              //       Card(
-              //         // color: Colors.white,
-              //         // child:
-              //         // Container(
-              //         //   padding: EdgeInsets.all(8),
-              //         //   child: Column(
-              //         //     crossAxisAlignment: CrossAxisAlignment.start,
-              //         //     children: <Widget>[
-              //         //       Row(
-              //         //         children: [
-              //         //           Text('Name:  '),
-              //         //           Text(
-              //         //             tx.name,
-              //         //             style: TextStyle(
-              //         //               fontSize: 16,
-              //         //               fontWeight: FontWeight.bold,
-              //         //             ),
-              //         //           ),
-              //         //         ],
-              //         //       ),
-              //         //       SizedBox(
-              //         //         height: 5,
-              //         //       ),
-              //         //       Row(
-              //         //         children: [
-              //         //           Text('Age:  '),
-              //         //           Text(
-              //         //             tx.age.toString(),
-              //         //             style: TextStyle(
-              //         //               fontSize: 16,
-              //         //               fontWeight: FontWeight.bold,
-              //         //             ),
-              //         //           ),
-              //         //         ],
-              //         //       ),
-              //         //       SizedBox(
-              //         //         height: 5,
-              //         //       ),
-              //         //       Row(
-              //         //         children: [
-              //         //           Text('Phone No:  '),
-              //         //           Text(
-              //         //             tx.phone.toString(),
-              //         //             style: TextStyle(
-              //         //               color: Colors.grey,
-              //         //             ),
-              //         //           ),
-              //         //         ],
-              //         //       ),
-              //         //     ],
-              //         //   ),
-              //         // ),
-              //         //   ],
-              //         // ),
-              //       ),
-              //     );
-              //   }).toList(),
-              // )
+
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: (){
             Navigator.pushNamed(context, 'addPatient');
+            // Navigator.of(context).push(MaterialPageRoute(
+            //     builder: (context) =>
+            //         AddPatient(
+            //           pname: patients[index].name,
+            //           phoneNo:patients[index].phone,
+            //           dob: patients[index].dob,
+            //
+            //         )));
 
           },
           child: Icon(

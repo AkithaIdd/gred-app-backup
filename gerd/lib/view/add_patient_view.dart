@@ -1,85 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gerd/helpers/colors.dart';
+import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/size.dart';
-import 'package:gerd/helpers/style.dart';
 import 'package:gerd/model/patient.dart';
 import 'package:gerd/widgets/new_patient_record.dart';
 import 'package:gerd/widgets/patient_record%20_list.dart';
-import 'package:gerd/widgets/text_input_search.dart';
 import 'package:gerd/widgets/text_inputs_date.dart';
 import 'package:gerd/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
 class AddPatient extends StatefulWidget {
-  const AddPatient({Key key}) : super(key: key);
+  const AddPatient({
+    Key key,
+    this.pname,
+    this.phoneNo,
+    this.dob,
+  }) : super(key: key);
+
+  final String pname;
+  final int phoneNo;
+  final DateTime dob;
 
   @override
   _AddPatientState createState() => _AddPatientState();
 }
 
 class _AddPatientState extends State<AddPatient> {
+  TextEditingController _phoneNoController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.pname;
+    _phoneNoController.text = widget.phoneNo.toString();
+  }
+
   DateTime _selectedBirthDate;
   DateTime _selectedTestDate;
   bool _isLoading = false;
-
-
-  final List<Patient> itemLineList = [
-    Patient(
-      id: 'p1',
-      testDate: DateTime.now(),
-      ageOfOnset: 50,
-      damageLength: 20,
-    ),
-    Patient(
-      id: 'p2',
-      testDate: DateTime.now(),
-      ageOfOnset: 60,
-      damageLength: 40,
-    ),
-    Patient(
-      id: 'p3',
-      testDate: DateTime.now(),
-      ageOfOnset: 70,
-      damageLength: 70,
-    ),
-    // Patient(
-    //   id: 'p1',
-    //   testDate: DateTime.now(),
-    //   ageOfOnset: 50,
-    //   damageLength: 20,
-    // ),
-    // Patient(
-    //   id: 'p2',
-    //   testDate: DateTime.now(),
-    //   ageOfOnset: 60,
-    //   damageLength: 40,
-    // ),
-    // Patient(
-    //   id: 'p3',
-    //   testDate: DateTime.now(),
-    //   ageOfOnset: 70,
-    //   damageLength: 70,
-    // ),
-    // Patient(
-    //   id: 'p1',
-    //   testDate: DateTime.now(),
-    //   ageOfOnset: 50,
-    //   damageLength: 20,
-    // ),
-    // Patient(
-    //   id: 'p2',
-    //   testDate: DateTime.now(),
-    //   ageOfOnset: 60,
-    //   damageLength: 40,
-    // ),
-    // Patient(
-    //   id: 'p3',
-    //   testDate: DateTime.now(),
-    //   ageOfOnset: 70,
-    //   damageLength: 70,
-    // ),
-  ];
 
   void _ageDatePicker() {
     showDatePicker(
@@ -98,15 +59,15 @@ class _AddPatientState extends State<AddPatient> {
     });
   }
 
-
-
   void _addNew_patient(BuildContext context) {
-    showModalBottomSheet(context: context, builder: (_){
-      return GestureDetector(
-        onTap: (){},
-        child: NewPatientRecord(),
-      );
-    });
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            child: NewPatientRecord(),
+          );
+        });
   }
 
   @override
@@ -137,14 +98,14 @@ class _AddPatientState extends State<AddPatient> {
               padding: 0,
               height: 36,
               readonly: false,
-              // textEditingController: _searchController,
+              textEditingController: _nameController,
             ),
             SizedBox(
               height: size_8,
             ),
-            // Text(DateFormat.yMd().format(_selectedDate)),
-            TextInputDate(
 
+
+            TextInputDate(
               hint: _selectedBirthDate == null
                   ? 'Select Date Of Birth'
                   : DateFormat('dd,MM,yyyy').format(_selectedBirthDate),
@@ -157,8 +118,24 @@ class _AddPatientState extends State<AddPatient> {
               height: 36,
               readonly: true,
               setDate: _ageDatePicker,
-              // textEditingController: _searchController,
+              // textEditingController: _dob,
             ),
+            SizedBox(
+              height: size_8,
+            ),
+            TextInputN(
+              // labelText: 'Name',
+              hint: 'Enter Phone No',
+              inputType: TextInputType.number,
+              inputAction: TextInputAction.next,
+              backgroundColor: Colors.white,
+              width: double.infinity,
+              padding: 0,
+              height: 36,
+              readonly: false,
+              textEditingController: _phoneNoController,
+            ),
+
             SizedBox(
               height: size_8,
             ),
@@ -172,8 +149,6 @@ class _AddPatientState extends State<AddPatient> {
 
             NewPatientRecordList(),
 
-
-
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -181,7 +156,6 @@ class _AddPatientState extends State<AddPatient> {
                   buttonName: 'Add Patient',
                   onTap: () {
                     _addNew_patient(context);
-
                   },
                   widthInc: 1,
                   heightInc: 0.07,
