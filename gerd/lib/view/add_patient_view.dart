@@ -16,11 +16,13 @@ class AddPatient extends StatefulWidget {
     this.pname,
     this.phoneNo,
     this.dob,
+    this.isNewPatient,
   }) : super(key: key);
 
   final String pname;
   final int phoneNo;
   final DateTime dob;
+  final bool isNewPatient;
 
   @override
   _AddPatientState createState() => _AddPatientState();
@@ -29,13 +31,16 @@ class AddPatient extends StatefulWidget {
 class _AddPatientState extends State<AddPatient> {
   TextEditingController _phoneNoController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
-
+  TextEditingController _dobController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.pname;
-    _phoneNoController.text = widget.phoneNo.toString();
+
+    if (widget.phoneNo != null && widget.pname != null) {
+      _nameController.text = widget.pname;
+      _phoneNoController.text = widget.phoneNo.toString();
+    }
   }
 
   DateTime _selectedBirthDate;
@@ -55,6 +60,7 @@ class _AddPatientState extends State<AddPatient> {
       }
       setState(() {
         _selectedBirthDate = pickedDate;
+        // _dobController.text = _selectedBirthDate as String;
       });
     });
   }
@@ -76,7 +82,7 @@ class _AddPatientState extends State<AddPatient> {
       backgroundColor: background,
       appBar: AppBar(
         title: Text(
-          'Add New Patient',
+          widget.isNewPatient == false ? 'Patient Details' : 'Add New Patient',
         ),
         centerTitle: true,
       ),
@@ -103,8 +109,6 @@ class _AddPatientState extends State<AddPatient> {
             SizedBox(
               height: size_8,
             ),
-
-
             TextInputDate(
               hint: _selectedBirthDate == null
                   ? 'Select Date Of Birth'
@@ -118,7 +122,7 @@ class _AddPatientState extends State<AddPatient> {
               height: 36,
               readonly: true,
               setDate: _ageDatePicker,
-              // textEditingController: _dob,
+              textEditingController: _dobController,
             ),
             SizedBox(
               height: size_8,
@@ -133,27 +137,24 @@ class _AddPatientState extends State<AddPatient> {
               padding: 0,
               height: 36,
               readonly: false,
+
               textEditingController: _phoneNoController,
             ),
-
             SizedBox(
               height: size_8,
             ),
-
             const Divider(
               height: 20,
               thickness: 5,
               indent: 20,
               endIndent: 20,
             ),
-
             NewPatientRecordList(),
-
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Button(
-                  buttonName: 'Add Patient',
+                  buttonName:widget.isNewPatient == false ? 'Add Record' : 'Add Patient',
                   onTap: () {
                     _addNew_patient(context);
                   },

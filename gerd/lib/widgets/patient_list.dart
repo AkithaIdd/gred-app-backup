@@ -70,6 +70,7 @@ class _NewPatientListState extends State<NewPatientList> {
                                 pname: patients[index].name,
                                 phoneNo:patients[index].phone,
                                 dob: patients[index].dob,
+                                isNewPatient: false,
 
                               )));
                     },

@@ -1,11 +1,18 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gerd/helpers/colors.dart';
+import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/style.dart';
 
-class MenuDrawer extends StatelessWidget {
+class MenuDrawer extends StatefulWidget {
   const MenuDrawer({Key key}) : super(key: key);
 
+  @override
+  _MenuDrawerState createState() => _MenuDrawerState();
+}
+
+class _MenuDrawerState extends State<MenuDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,16 +73,46 @@ class MenuDrawer extends StatelessWidget {
                 'Logout',
                 style: largeTextBlackBoldStyle,
               ),
-              onTap: () {
+              onTap: () async{
+                await  showDialog(context: context,
+                    builder: (BuildContext context) {
+                      return  dialogLogout();
+                    });
+
+
+
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget dialogLogout() {
+
+    return  AlertDialog(
+      title: Text(confirmation),
+      content: const Text(
+          doYouWishToSignOut),
+      actions: <Widget>[
+        TextButton(
+          child: const Text(no),
+          onPressed: () {
+            Navigator.pop(context, false);
+          },
+        ),
+        TextButton(
+          child: const Text(yes),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/');
+          },
+        )
+      ],
     );
   }
 }

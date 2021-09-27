@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gerd/helpers/colors.dart';
+import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/size.dart';
 import 'package:gerd/helpers/style.dart';
 import 'package:gerd/model/patient.dart';
@@ -88,7 +89,8 @@ class _DashboardState extends State<Dashboard> {
                     icon: Icon(Icons.menu),
                     onPressed: () => Scaffold.of(context).openDrawer(),
                   ),
-            )),
+            ),
+        ),
         drawer: MenuDrawer(),
         body: Container(
           // padding: EdgeInsets.all(5),
@@ -165,4 +167,6 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
+
 }

@@ -9,6 +9,7 @@ import 'package:gerd/service/login_service.dart';
 import 'package:gerd/view/view.dart';
 import 'package:gerd/widgets/widgets.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -65,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
           SizedBox(
-            height: 50,
+            height: 10,
           ),
           Center(
             child: Column(
@@ -148,6 +149,33 @@ class _LoginViewState extends State<LoginView> {
                 )
               ],
             ),
+          ),
+
+          Row(children: <Widget>[
+            Expanded(
+              child: new Container(
+                  margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: Divider(
+                    color: Colors.black,
+                    height: 36,
+                  )),
+            ),
+            Text("Or",style: TextStyle(fontWeight: FontWeight.bold),),
+            Expanded(
+              child: new Container(
+                  margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: Divider(
+                    color: Colors.black,
+                    height: 36,
+                  )),
+            ),
+          ]),
+          Container(
+            height: size.height * 0.07,
+            width: size.width * 0.9,
+            child: SignInWithAppleButton(onPressed: (){
+
+            },borderRadius: const BorderRadius.all(Radius.zero),),
           ),
           Spacer(),
           Container(
