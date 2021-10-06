@@ -2,7 +2,6 @@ import 'package:gerd/helpers/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class TextInputN extends StatelessWidget {
   const TextInputN({
     Key key,
@@ -29,9 +28,9 @@ class TextInputN extends StatelessWidget {
   final double height;
   final TextEditingController textEditingController;
   final Function setDate;
-  final Function validator;
   final bool readonly;
   final String labelText;
+  final Function validator;
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +43,14 @@ class TextInputN extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(4),
       ),
-        child: TextFormField(
-
-
-          validator: validator,
+      child: TextFormField(
+        validator: validator,
           readOnly: readonly,
           onTap: setDate,
           controller: textEditingController,
           decoration: InputDecoration(
             labelText: labelText,
-            contentPadding: EdgeInsets.only(top: 8,left: 8),
+            contentPadding: EdgeInsets.only(top: 8, left: 8),
             enabledBorder: const OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey, width: 0.0),
             ),
@@ -63,11 +60,9 @@ class TextInputN extends StatelessWidget {
             hintText: hint,
             hintStyle: middleTextStyle,
           ),
-
           style: middleTextBlackBoldStyle,
           keyboardType: inputType,
-          textInputAction: inputAction
-        ),
-      );
+          textInputAction: inputAction),
+    );
   }
 }

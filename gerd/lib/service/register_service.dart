@@ -7,9 +7,6 @@ import 'package:gerd/model/user_register.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterService {
-  int status;
-
-  RegisterService({this.status});
 
   ResponseModel responseModel;
   static const API = BaseUrl;

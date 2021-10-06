@@ -42,64 +42,56 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final name = Preference.getString('name');
     return WillPopScope(
       onWillPop: () => Future.value(false),
-
       child: SafeArea(
-
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: background,
           appBar: AppBar(
-              actions: [
-                Container(
-                  padding: EdgeInsets.only(right: 10),
-                  child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .body1,
-                        children: [
-                          WidgetSpan(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 2.0),
-                              child: Icon(FontAwesomeIcons.solidUser, size: 15,),
+            actions: [
+              Container(
+                padding: EdgeInsets.only(right: 10),
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      children: [
+                        WidgetSpan(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                            child: Icon(
+                              FontAwesomeIcons.solidUser,
+                              size: 15,
                             ),
                           ),
-                          TextSpan(text: name, style: TextStyle(
-                              fontSize: 20
-                          )),
-                        ],
-                      ),
+                        ),
+                        TextSpan(text: 'abc', style: TextStyle(fontSize: 20)),
+                      ],
                     ),
                   ),
-                )
-              ],
-              flexibleSpace: Container(
-                padding: EdgeInsets.only(top: 5),
-                child: Text(
-                  'GERD APP',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 25),
                 ),
+              )
+            ],
+            flexibleSpace: Container(
+              padding: EdgeInsets.only(top: 5),
+              child: Text(
+                'GERD APP',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25),
               ),
-              leading: Builder(
-                builder: (context) =>
-                    IconButton(
-                      icon: Icon(Icons.menu),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    ),
+            ),
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
               ),
+            ),
           ),
           drawer: MenuDrawer(),
           body: Container(
             // padding: EdgeInsets.all(5),
             child: Column(
-
               children: [
                 SizedBox(
                   height: 8,
@@ -107,8 +99,7 @@ class _DashboardState extends State<Dashboard> {
                 Container(
                     color: Colors.white,
                     padding: EdgeInsets.all(10),
-                    child:
-                    Row(children: [
+                    child: Row(children: [
                       // SizedBox(
                       //   // width: size_8,
                       // ),
@@ -137,8 +128,7 @@ class _DashboardState extends State<Dashboard> {
                       //       },
                       //   margin: size_8,
                       // ),
-                    ])
-                ),
+                    ])),
 
                 // IconButton(onPressed: (){}, icon: Icon(Icons.menu_rounded))
 
@@ -147,12 +137,11 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 // PatientList(patients),
                 NewPatientList(),
-
               ],
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.pushNamed(context, 'addPatient');
               // Navigator.of(context).push(MaterialPageRoute(
               //     builder: (context) =>
@@ -162,7 +151,6 @@ class _DashboardState extends State<Dashboard> {
               //           dob: patients[index].dob,
               //
               //         )));
-
             },
             child: Icon(
               Icons.add,
@@ -172,6 +160,4 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-
-
 }

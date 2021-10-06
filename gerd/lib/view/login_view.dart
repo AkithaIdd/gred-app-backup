@@ -61,7 +61,6 @@ class _LoginViewState extends State<LoginView> {
       resizeToAvoidBottomInset: false,
       backgroundColor: background,
       body: Padding(
-
         padding: const EdgeInsets.all(0.0),
         child: _isLoading
             ? Center(child: CircularProgressIndicator())
@@ -77,7 +76,6 @@ class _LoginViewState extends State<LoginView> {
                     height: 10,
                   ),
                   Center(
-
                     child: Column(
                       children: [
                         Image(
@@ -97,53 +95,56 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         Form(
                           // key:_formkey ,
-                          child: Column(children: [
-                            TextInputWithIcon(
-                              icon: FontAwesomeIcons.solidUser,
-                              hint: ENTER_YOUR_USERNAME,
-                              inputType: TextInputType.name,
-                              inputAction: TextInputAction.next,
-                              textEditingController: _usernameController,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return "Please enter name";
-                                }
-                                return null;
-                              },
-                            ),
-                            TextInputWithIcon(
-                              icon: FontAwesomeIcons.lock,
-                              hint: ENTER_YOUR_PASSWORD,
-                              inputType: TextInputType.visiblePassword,
-                              inputAction: TextInputAction.done,
-                              textEditingController: _passwordController,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return "Please enter name";
-                                }
-                                return null;
-                              },
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Button(
-                              buttonName: 'LOGIN',
-                              onTap: () {
-                                if(_usernameController.text.isEmpty ){
-                                  SnackBarWidget.buildSnackbar(context, 'Please Enter a Username');
-                                }else if(_passwordController.text.isEmpty){
-                                  SnackBarWidget.buildSnackbar(context, 'Please Enter a Password');
-                                } else{userLoginBtn();}
-
-                              }
-                              ,
-                              widthInc: 0.9,
-                              heightInc: 0.07,
-                            ),
-                          ],),
+                          child: Column(
+                            children: [
+                              TextInputWithIcon(
+                                icon: FontAwesomeIcons.solidUser,
+                                hint: ENTER_YOUR_USERNAME,
+                                inputType: TextInputType.name,
+                                inputAction: TextInputAction.next,
+                                textEditingController: _usernameController,
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return "Please enter name";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextInputWithIcon(
+                                icon: FontAwesomeIcons.lock,
+                                hint: ENTER_YOUR_PASSWORD,
+                                inputType: TextInputType.visiblePassword,
+                                inputAction: TextInputAction.done,
+                                textEditingController: _passwordController,
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return "Please enter name";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Button(
+                                buttonName: 'LOGIN',
+                                onTap: () {
+                                  if (_usernameController.text.isEmpty) {
+                                    SnackBarWidget.buildSnackbar(
+                                        context, 'Please Enter a Username');
+                                  } else if (_passwordController.text.isEmpty) {
+                                    SnackBarWidget.buildSnackbar(
+                                        context, 'Please Enter a Password');
+                                  } else {
+                                    userLoginBtn();
+                                  }
+                                },
+                                widthInc: 0.9,
+                                heightInc: 0.07,
+                              ),
+                            ],
+                          ),
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -226,10 +227,15 @@ class _LoginViewState extends State<LoginView> {
                           'Version 1.0.2',
                           style: middleTextBlackStyle,
                         ),
-                        Text(
-                          'Forgot Password?',
-                          textAlign: TextAlign.center,
-                          style: middleTextBlackStyle,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'forgotPassword');
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            textAlign: TextAlign.center,
+                            style: middleTextBlackStyle,
+                          ),
                         )
                       ],
                     ),
