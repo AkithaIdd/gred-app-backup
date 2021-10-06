@@ -28,7 +28,7 @@ class LoginService{
 
   LoginResponse getLoginDetails(){
     final jasonData = json.decode(
-        '"value":[{"id":"5f425477-865c-4cab-9cd6-4b120d9bb046","DSRNo":"B01","DSRName":"Burhan","Password":"abc@123","CACode":""}]');
+        '"value":[{"id":"5f425477-865c-4cab-9cd6-4b120d9bb046","DSRNo":"B012","DSRName":"Burhan","Password":"abc@123","CACode":""}]');
     try {
       return LoginResponse.fromJson(jasonData);
     }on Exception catch(e){

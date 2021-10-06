@@ -41,6 +41,7 @@ class TextInputRead extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: TextField(
+
         maxLines: 2,
         onTap: onTap,
         controller: textEditingController,

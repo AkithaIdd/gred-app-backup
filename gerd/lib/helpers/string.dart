@@ -1,10 +1,6 @@
 //hint
 const String ENTER_YOUR_USERNAME = "Enter Your Username";
 const String ENTER_YOUR_PASSWORD = "Enter Your Password";
-const String ENTER_YOUR_CURRENT_PASSWORD = "Enter your current password";
-const String ENTER_YOUR_NEW_PASSWORD = "Enter your new password";
-const String ENTER_YOUR_CONFIRMED_PASSWORD = "Enter your confirmed password";
-const String ENTER_YOUR_EMAIL = "Enter your email";
 
 //api name
 const String login = "MobileLogin";
@@ -33,29 +29,21 @@ const String settings_server_details = "Server Details";
 const String settings_remember = "Remember";
 const String APP_NAME = "GERD APP";
 const String REGISTER = "Register";
-const String changePassword = "Change Password";
-const String forgotPassword = "Forgot Password";
+const String body = "DATA:";
 
 //common
 const String authPassword = "12345";
 const String SERVICE_IP_VAL = "http://heineken.cloudapp.azure.com:5520";
-const API_BASE_URL = 'https://heineken.cloudapp.azure.com7258';
-const SERVER_ENDPOINT = '/DNS_BC140W1_MOB/api/dspl/mobile/v1.0/';
-const asureBaseUrl = 'http://heineken.cloudapp.azure.com:4320';
-const asureEndPoint = '/api/Mobile/';
+const    API_BASE_URL = 'https://heineken.cloudapp.azure.com7258';
+const  SERVER_ENDPOINT = '/DNS_BC140W1_MOB/api/dspl/mobile/v1.0/';
+const  asureBaseUrl = 'http://heineken.cloudapp.azure.com:4320';
+const  BaseUrl = 'http://192.168.137.1:8083/api';
+const  asureEndPoint = '/api/Mobile/';
 
 const String SUBSCRIPTION_ID_VAL = "SID-00001";
 const String SESSION_TIME_OUT_VAL = "60";
 const String CANCEL = "Cancel";
-const String CHANGE_PASSWORD = "CHANGE PASSWORD";
-const String CONFIRM_PASSWORD = "Confirm Password";
-const String NEW_PASSWORD = "New Password";
-const String CURRENT_PASSWORD = "Current Password";
-const String CHANGE_PASSWORD_MESSAGE = "Make sure you remember your password";
-const String FORGOT_PASSWORD_MESSAGE =
-    "Don't worry! Resetting your password is easy.\nJust type in the email you registred to\nGERD App";
 const String OK = "Ok";
-const String EMAIL = "Email";
 const String sortBy = "Sort By";
 const String recordLinks = "Record Links";
 const String qAResult = "QA Result";
@@ -77,6 +65,7 @@ const String save = "Save";
 const String confirmationMsg = "Are you sure you want Continue ?";
 const String postConfirmation = "Are you sure you want to post ?";
 const String mainSync = "main_sync";
+
 
 //text label
 const String SERVICE_IP_SERVER = "Service IP Server";
@@ -202,7 +191,6 @@ const String lotNoRemark = "Lot No/Remarks";
 const String quantity = "Quantity";
 const String qtyRec = "Qty. Rec.";
 const String password = "Admin Password";
-const String RESET_PASSWORD = "RESET PASSWORD";
 
 const String customerCode_ = "Code: ";
 const String customerCode = "Customer Code";
@@ -222,22 +210,17 @@ const String appError = "An error occured by app";
 
 //dialog
 const String doYouWishToSignOut = "Do you wish to sign out ?";
-const String notification_msg_confirmation_force_sync =
-    "Are you sure want to sync data? "
+const String notification_msg_confirmation_force_sync = "Are you sure want to sync data? "
     "This process will take time to complete.";
-const String notification_msg_save_collection_data =
-    "Are you sure want to save following data? ";
-const String notification_msg_confirm_and_print =
-    "Are you sure you want to confirm ? ";
-const String notification_sync =
-    "Are you sure you want to sync selected items? ";
+const String notification_msg_save_collection_data = "Are you sure want to save following data? ";
+const String notification_msg_confirm_and_print = "Are you sure you want to confirm ? ";
+const String notification_sync = "Are you sure you want to sync selected items? ";
 const String dataSync = "Data Sync";
 const String emptyCollectionSave = "Empty Collection Save";
 const String confirmAndPrint = "Confirm & Print";
 const String syncAll = "Sync To Server";
 const String welcomeToApp = "Welcome Empty Collection App";
-const String notification_msg_first_time_sync =
-    "You must sync data when you login first time, "
+const String notification_msg_first_time_sync = "You must sync data when you login first time, "
     "This process will take time to complete.";
 
 const String Sync = 'Day End Sync';
@@ -258,6 +241,12 @@ const int collectionIssue = 2;
 const String otherItem = "20000000";
 const String useItem = "20000001";
 
-const List<String> syncChoice = <String>[Sync];
+const List<String> syncChoice = <String>[
+  Sync
+];
 
-const List<String> printChoice = <String>[Print];
+const List<String> printChoice = <String>[
+  Print
+];
+
+

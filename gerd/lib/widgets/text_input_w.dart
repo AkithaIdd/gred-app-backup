@@ -13,6 +13,7 @@ class TextInputWithIcon extends StatelessWidget {
     this.inputAction,
     this.textEditingController,
     this.onTap,
+    this.validator,
   }) : super(key: key);
 
   final IconData icon;
@@ -21,6 +22,7 @@ class TextInputWithIcon extends StatelessWidget {
   final TextInputAction inputAction;
   final TextEditingController textEditingController;
   final Function onTap;
+  final Function validator;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,13 @@ class TextInputWithIcon extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
         ),
         child: Center(
-          child: TextField(
-
+          child: TextFormField(
+            validator: validator,
             onTap: onTap,
             obscuringCharacter: "*",
             controller: textEditingController,
             decoration: InputDecoration(
+
               border: InputBorder.none,
               prefixIcon: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),

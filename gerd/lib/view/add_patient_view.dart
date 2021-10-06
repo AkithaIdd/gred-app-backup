@@ -94,21 +94,9 @@ class _AddPatientState extends State<AddPatient> {
             SizedBox(
               height: size_8,
             ),
-            Container(
-              margin: EdgeInsets.only(left: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Name",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ),
             TextInputN(
               // labelText: 'Name',
-              hint: 'Enter your name',
+              hint: 'Enter Name',
               inputType: TextInputType.name,
               inputAction: TextInputAction.next,
               backgroundColor: Colors.white,
@@ -120,46 +108,6 @@ class _AddPatientState extends State<AddPatient> {
             ),
             SizedBox(
               height: size_8,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Phone Number",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            TextInputN(
-              // labelText: 'Name',
-              hint: 'Enter phone number',
-              inputType: TextInputType.number,
-              inputAction: TextInputAction.next,
-              backgroundColor: Colors.white,
-              width: double.infinity,
-              padding: 0,
-              height: 36,
-              readonly: false,
-
-              textEditingController: _phoneNoController,
-            ),
-            SizedBox(
-              height: size_8,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Date of Birth",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.start,
-              ),
             ),
             TextInputDate(
               hint: _selectedBirthDate == null
@@ -179,39 +127,34 @@ class _AddPatientState extends State<AddPatient> {
             SizedBox(
               height: size_8,
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: Divider(
-                  thickness: 3,
-                )),
-                Text(
-                  'LES Damage Result',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                Expanded(
-                  child: Divider(thickness: 3),
-                ),
-              ],
-            ),
-            // const Divider(
-            //   height: 20,
-            //   thickness: 5,
-            //   indent: 20,
-            //   endIndent: 20,
-            // ),
+            TextInputN(
+              // labelText: 'Name',
+              hint: 'Enter Phone No',
+              inputType: TextInputType.number,
+              inputAction: TextInputAction.next,
+              backgroundColor: Colors.white,
+              width: double.infinity,
+              padding: 0,
+              height: 36,
+              readonly: false,
 
+              textEditingController: _phoneNoController,
+            ),
+            SizedBox(
+              height: size_8,
+            ),
+            const Divider(
+              height: 20,
+              thickness: 5,
+              indent: 20,
+              endIndent: 20,
+            ),
             NewPatientRecordList(),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Button(
-                  buttonName: widget.isNewPatient == false
-                      ? 'Edit Patient'
-                      : 'Add Patient',
+                  buttonName:widget.isNewPatient == false ? 'Add Record' : 'Add Patient',
                   onTap: () {
                     _addNew_patient(context);
                   },
