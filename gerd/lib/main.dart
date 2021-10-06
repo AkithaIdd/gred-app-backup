@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gerd/view/add_patient_view.dart';
+import 'package:gerd/view/change_password.dart';
 import 'package:gerd/view/dashboard_new.dart';
+import 'package:gerd/view/forgot_password.dart';
+import 'package:gerd/view/profile.dart';
 import 'package:gerd/view/register.dart';
 import 'package:gerd/view/view.dart';
 import 'package:get_it/get_it.dart';
@@ -9,12 +12,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'helpers/helpers.dart';
 import 'service/login_service.dart';
 
-void setupLocator(){
+void setupLocator() {
   GetIt.instance.registerLazySingleton(() => LoginService());
-
 }
 
-void main() async{
+void main() async {
   setupLocator();
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,15 +31,14 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Welcome to Gred App',
       theme: ThemeData(
         primarySwatch: Colors.cyan,
-        textTheme: GoogleFonts.josefinSansTextTheme(
-            Theme.of(context).textTheme
-        ),
+        textTheme:
+            GoogleFonts.josefinSansTextTheme(Theme.of(context).textTheme),
       ),
       initialRoute: '/',
       routes: {
@@ -49,6 +50,9 @@ class Login extends StatelessWidget {
         'register': (context) => RegisterPage(),
         'dashboard_new': (context) => Dashboard(),
         'addPatient': (context) => AddPatient(),
+        'forgotPassword': (context) => ForgotPassword(),
+        'changePassword': (context) => ChangePassword(),
+        'profile': (context) => Profile(),
       },
     );
   }

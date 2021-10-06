@@ -160,7 +160,10 @@ class _LoginViewState extends State<LoginView> {
                     height: 36,
                   )),
             ),
-            Text("Or",style: TextStyle(fontWeight: FontWeight.bold),),
+            Text(
+              "Or",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Expanded(
               child: new Container(
                   margin: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -173,13 +176,14 @@ class _LoginViewState extends State<LoginView> {
           Container(
             height: size.height * 0.07,
             width: size.width * 0.9,
-            child: SignInWithAppleButton(onPressed: (){
-
-            },borderRadius: const BorderRadius.all(Radius.zero),),
+            child: SignInWithAppleButton(
+              onPressed: () {},
+              borderRadius: const BorderRadius.all(Radius.zero),
+            ),
           ),
           Spacer(),
           Container(
-            padding: EdgeInsets.only(right: 20,left: 20),
+            padding: EdgeInsets.only(right: 20, left: 20),
             height: 50,
             decoration: BoxDecoration(color: primaryLight),
             child: Row(
@@ -189,11 +193,15 @@ class _LoginViewState extends State<LoginView> {
                   'Version 1.0.2',
                   style: middleTextBlackStyle,
                 ),
-                Text(
-                  'Forgot Password?',
-                  textAlign: TextAlign.center,
-                  style: middleTextBlackStyle,
-
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'forgotPassword');
+                  },
+                  child: Text(
+                    'Forgot Password?',
+                    textAlign: TextAlign.center,
+                    style: middleTextBlackStyle,
+                  ),
                 )
               ],
             ),
