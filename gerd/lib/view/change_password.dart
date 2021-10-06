@@ -13,6 +13,12 @@ class ChangePassword extends StatelessWidget {
     return Scaffold(
       backgroundColor: background,
       appBar: AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(context, 'dashboard_new');
+          },
+        ),
         foregroundColor: Colors.white,
         title: Text(
           changePassword,

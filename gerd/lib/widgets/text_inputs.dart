@@ -15,6 +15,8 @@ class TextInputN extends StatelessWidget {
     this.textEditingController,
     this.setDate,
     this.readonly,
+    this.labelText,
+    this.validator,
   }) : super(key: key);
 
   final String hint;
@@ -27,6 +29,8 @@ class TextInputN extends StatelessWidget {
   final TextEditingController textEditingController;
   final Function setDate;
   final bool readonly;
+  final String labelText;
+  final Function validator;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +43,13 @@ class TextInputN extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(4),
       ),
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
           readOnly: readonly,
           onTap: setDate,
           controller: textEditingController,
           decoration: InputDecoration(
+            labelText: labelText,
             contentPadding: EdgeInsets.only(top: 8, left: 8),
             enabledBorder: const OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey, width: 0.0),

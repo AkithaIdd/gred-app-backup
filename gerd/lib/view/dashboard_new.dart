@@ -42,116 +42,119 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: background,
-        appBar: AppBar(
-          actions: [
-            Container(
-              padding: EdgeInsets.only(right: 10),
-              child: Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: Theme.of(context).textTheme.bodyText1,
-                    children: [
-                      WidgetSpan(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                          child: Icon(
-                            FontAwesomeIcons.solidUser,
-                            size: 15,
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: background,
+          appBar: AppBar(
+            actions: [
+              Container(
+                padding: EdgeInsets.only(right: 10),
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodyText1,
+                      children: [
+                        WidgetSpan(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                            child: Icon(
+                              FontAwesomeIcons.solidUser,
+                              size: 15,
+                            ),
                           ),
                         ),
-                      ),
-                      TextSpan(text: 'abc', style: TextStyle(fontSize: 20)),
-                    ],
+                        TextSpan(text: 'abc', style: TextStyle(fontSize: 20)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
-          flexibleSpace: Container(
-            padding: EdgeInsets.only(top: 5),
-            child: Text(
-              'GERD APP',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25),
-            ),
-          ),
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
-        ),
-        drawer: MenuDrawer(),
-        body: Container(
-          // padding: EdgeInsets.all(5),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 8,
-              ),
-              Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.all(10),
-                  child: Row(children: [
-                    // SizedBox(
-                    //   // width: size_8,
-                    // ),
-                    TextInputN(
-                      hint: 'Search Patient',
-                      inputType: TextInputType.name,
-                      inputAction: TextInputAction.next,
-                      backgroundColor: Colors.white,
-                      width: 0.82,
-                      padding: 0,
-                      height: 36,
-                      readonly: false,
-                      // textEditingController: _searchController,
-                    ),
-                    ImageButton(
-                      customIcon: FontAwesomeIcons.filter,
-                      onTap: () {
-                        // searchDialog();
-                      },
-                      margin: size_8,
-                    ),
-                    // ImageButton(
-                    //   customIcon: FontAwesomeIcons.camera,
-                    //   onTap: () {
-                    //     scanBarcode();
-                    //       },
-                    //   margin: size_8,
-                    // ),
-                  ])),
-
-              // IconButton(onPressed: (){}, icon: Icon(Icons.menu_rounded))
-
-              SizedBox(
-                height: 4,
-              ),
-              // PatientList(patients),
-              NewPatientList(),
+              )
             ],
+            flexibleSpace: Container(
+              padding: EdgeInsets.only(top: 5),
+              child: Text(
+                'GERD APP',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, 'addPatient');
-            // Navigator.of(context).push(MaterialPageRoute(
-            //     builder: (context) =>
-            //         AddPatient(
-            //           pname: patients[index].name,
-            //           phoneNo:patients[index].phone,
-            //           dob: patients[index].dob,
-            //
-            //         )));
-          },
-          child: Icon(
-            Icons.add,
+          drawer: MenuDrawer(),
+          body: Container(
+            // padding: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(10),
+                    child: Row(children: [
+                      // SizedBox(
+                      //   // width: size_8,
+                      // ),
+                      TextInputN(
+                        hint: 'Search Patient',
+                        inputType: TextInputType.name,
+                        inputAction: TextInputAction.next,
+                        backgroundColor: Colors.white,
+                        width: 0.82,
+                        padding: 0,
+                        height: 36,
+                        readonly: false,
+                        // textEditingController: _searchController,
+                      ),
+                      ImageButton(
+                        customIcon: FontAwesomeIcons.filter,
+                        onTap: () {
+                          // searchDialog();
+                        },
+                        margin: size_8,
+                      ),
+                      // ImageButton(
+                      //   customIcon: FontAwesomeIcons.camera,
+                      //   onTap: () {
+                      //     scanBarcode();
+                      //       },
+                      //   margin: size_8,
+                      // ),
+                    ])),
+
+                // IconButton(onPressed: (){}, icon: Icon(Icons.menu_rounded))
+
+                SizedBox(
+                  height: 4,
+                ),
+                // PatientList(patients),
+                NewPatientList(),
+              ],
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'addPatient');
+              // Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) =>
+              //         AddPatient(
+              //           pname: patients[index].name,
+              //           phoneNo:patients[index].phone,
+              //           dob: patients[index].dob,
+              //
+              //         )));
+            },
+            child: Icon(
+              Icons.add,
+            ),
           ),
         ),
       ),

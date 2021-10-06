@@ -45,6 +45,7 @@ const String SERVICE_IP_VAL = "http://heineken.cloudapp.azure.com:5520";
 const API_BASE_URL = 'https://heineken.cloudapp.azure.com7258';
 const SERVER_ENDPOINT = '/DNS_BC140W1_MOB/api/dspl/mobile/v1.0/';
 const asureBaseUrl = 'http://heineken.cloudapp.azure.com:4320';
+const BaseUrl = 'http://192.168.137.1:8083/api';
 const asureEndPoint = '/api/Mobile/';
 
 const String SUBSCRIPTION_ID_VAL = "SID-00001";
