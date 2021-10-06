@@ -149,33 +149,139 @@ class _AddPatientState extends State<AddPatient> {
             SizedBox(
               height: size_8,
             ),
-            Container(
-              margin: EdgeInsets.only(left: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Date of Birth",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 5),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Date of Birth",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      TextInputDate(
+                        hint: _selectedBirthDate == null
+                            ? 'Select Date Of Birth'
+                            : DateFormat('dd,MM,yyyy')
+                                .format(_selectedBirthDate),
+                        inputType: TextInputType.text,
+                        inputAction: null,
+                        backgroundColor: Colors.white,
+                        icon: FontAwesomeIcons.calendar,
+                        width: double.infinity,
+                        padding: 0,
+                        height: 36,
+                        readonly: true,
+                        setDate: _ageDatePicker,
+                        textEditingController: _dobController,
+                      ),
+                    ],
+                  ),
                 ),
-                textAlign: TextAlign.start,
-              ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  // flex: 2,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 5),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Age",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      TextInputN(
+                        // labelText: 'Name',
+                        hint: 'Age',
+                        inputType: TextInputType.number,
+                        inputAction: TextInputAction.next,
+                        backgroundColor: Colors.white,
+                        width: double.infinity,
+                        padding: 0,
+                        height: 36,
+                        readonly: false,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            TextInputDate(
-              hint: _selectedBirthDate == null
-                  ? 'Select Date Of Birth'
-                  : DateFormat('dd,MM,yyyy').format(_selectedBirthDate),
-              inputType: TextInputType.text,
-              inputAction: null,
-              backgroundColor: Colors.white,
-              icon: FontAwesomeIcons.calendar,
-              width: double.infinity,
-              padding: 0,
-              height: 36,
-              readonly: true,
-              setDate: _ageDatePicker,
-              textEditingController: _dobController,
-            ),
+
+            // Row(
+            //   children: <Widget>[
+            //     Column(children: [Expanded(
+            //       child: Text(
+            //         "Date of Birth",
+            //         style: TextStyle(
+            //           fontWeight: FontWeight.bold,
+            //           fontSize: 16,
+            //         ),
+            //         textAlign: TextAlign.start,
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: TextInputDate(
+            //         hint: _selectedBirthDate == null
+            //             ? 'Select Date Of Birth'
+            //             : DateFormat('dd,MM,yyyy').format(_selectedBirthDate),
+            //         inputType: TextInputType.text,
+            //         inputAction: null,
+            //         backgroundColor: Colors.white,
+            //         icon: FontAwesomeIcons.calendar,
+            //         width: double.infinity,
+            //         padding: 0,
+            //         height: 36,
+            //         readonly: true,
+            //         setDate: _ageDatePicker,
+            //         textEditingController: _dobController,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
+            // Container(
+            //   margin: EdgeInsets.only(left: 5),
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     "Date of Birth",
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 16,
+            //     ),
+            //     textAlign: TextAlign.start,
+            //   ),
+            // ),
+            // TextInputDate(
+            //   hint: _selectedBirthDate == null
+            //       ? 'Select Date Of Birth'
+            //       : DateFormat('dd,MM,yyyy').format(_selectedBirthDate),
+            //   inputType: TextInputType.text,
+            //   inputAction: null,
+            //   backgroundColor: Colors.white,
+            //   icon: FontAwesomeIcons.calendar,
+            //   width: double.infinity,
+            //   padding: 0,
+            //   height: 36,
+            //   readonly: true,
+            //   setDate: _ageDatePicker,
+            //   textEditingController: _dobController,
+            // ),
             SizedBox(
               height: size_8,
             ),
@@ -203,7 +309,38 @@ class _AddPatientState extends State<AddPatient> {
             //   indent: 20,
             //   endIndent: 20,
             // ),
-
+            InkWell(
+              onTap: () {},
+              child: Card(
+                color: Colors.lightBlue[200],
+                margin: EdgeInsets.only(bottom: size_8),
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Container(
+                      width: double.infinity,
+                      height: 70,
+                      // height: 200,
+                      // width: 200,
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        child: Image.asset(
+                          'assets/plus.png',
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
+                      child: Text(
+                        "Add New LES Damage Result",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             NewPatientRecordList(),
             Expanded(
               child: Align(
