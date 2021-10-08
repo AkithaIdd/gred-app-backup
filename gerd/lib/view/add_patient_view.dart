@@ -303,6 +303,7 @@ class _AddPatientState extends State<AddPatient> {
                 ),
               ],
             ),
+
             // const Divider(
             //   height: 20,
             //   thickness: 5,

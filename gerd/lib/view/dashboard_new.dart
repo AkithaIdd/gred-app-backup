@@ -19,26 +19,26 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final List<PatientTest> patients = [
-    PatientTest(
-      id: 'p1',
-      name: 'Akitha Iddamalgoda',
-      age: 50,
-      phone: 0779033811,
-    ),
-    PatientTest(
-      id: 'p2',
-      name: 'Akitha Iddamalgoda',
-      age: 60,
-      phone: 0713465865,
-    ),
-    PatientTest(
-      id: 'p3',
-      name: 'Akitha Iddamalgoda',
-      age: 70,
-      phone: 0713465865,
-    ),
-  ];
+  // final List<PatientList> patients = [
+  //   PatientList(
+  //     id: 'p1',
+  //     name: 'Akitha Iddamalgoda',
+  //     age: 50,
+  //     phone: 0779033811,
+  //   ),
+  //   PatientList(
+  //     id: 'p2',
+  //     name: 'Akitha Iddamalgoda',
+  //     age: 60,
+  //     phone: 0713465865,
+  //   ),
+  //   PatientList(
+  //     id: 'p3',
+  //     name: 'Akitha Iddamalgoda',
+  //     age: 70,
+  //     phone: 0713465865,
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class _DashboardState extends State<Dashboard> {
                   height: 4,
                 ),
                 // PatientList(patients),
-                NewPatientList(),
+                // NewPatientList(),
               ],
             ),
           ),

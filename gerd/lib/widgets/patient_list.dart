@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gerd/helpers/helpers.dart';
+import 'package:gerd/model/api_response.dart';
 import 'package:gerd/model/patient_test.dart';
+import 'package:gerd/service/register_service.dart';
 import 'package:gerd/view/add_patient_view.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 
 class NewPatientList extends StatefulWidget {
@@ -13,34 +16,55 @@ class NewPatientList extends StatefulWidget {
 
 class _NewPatientListState extends State<NewPatientList> {
 
+  RegisterService get service => GetIt.I<RegisterService>();
+
+  APIResponse<List<PatientList>> _apiResponse;
+
   bool _isLoading = false;
+
   // DateFormat dateForma = DateFormat("dd,MM,yyyy");
   // DateTime dateTime = dateForma.parse("23,09,1988");
 
-  final List<PatientTest> patients = [
-    PatientTest(
+  final List<PatientList> patients = [
+    PatientList(
       id: 'p1',
       name: 'Akitha Iddamalgoda',
-      age: 90,
+      // age: 90,
       dob: DateTime.now(),
       phone: 0779033811,
     ),
-    PatientTest(
+    PatientList(
       id: 'p2',
       name: 'Akitha ',
-      age: 60,
+      // age: 60,
       dob: DateTime(23,09,1938),
       phone: 0713465865,
     ),
-    PatientTest(
+    PatientList(
       id: 'p3',
       name: ' Iddamalgoda',
-      age: 70,
+      // age: 70,
       dob: DateTime(23,09,1968),
       phone: 0713465865,
     ),
   ];
-
+  // @override
+  // void initState() {
+  //   _fetchNotes();
+  //   super.initState();
+  // }
+  //
+  // _fetchNotes() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //
+  //   _apiResponse = await service.getPatientList();
+  //
+  //   setState(() {
+  //     _isLoading = false;
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
 
@@ -58,7 +82,7 @@ class _NewPatientListState extends State<NewPatientList> {
                 shrinkWrap: true,
                 // scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.symmetric(horizontal: 0),
-                itemCount: patients.length,
+                itemCount: _apiResponse.data.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
@@ -67,9 +91,9 @@ class _NewPatientListState extends State<NewPatientList> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
                               AddPatient(
-                                pname: patients[index].name,
-                                phoneNo:patients[index].phone,
-                                dob: patients[index].dob,
+                                pname: _apiResponse.data[index].name,
+                                phoneNo:_apiResponse.data[index].phone,
+                                dob: _apiResponse.data[index].dob,
                                 isNewPatient: false,
 
                               )));
@@ -84,7 +108,7 @@ class _NewPatientListState extends State<NewPatientList> {
                             Row(
                               children: [
                                 Text('Name:  '),
-                                Text(patients[index].name,
+                                Text(_apiResponse.data[index].name,
                                     style: smallTextBlackBoldStyle
                                   // tx.name,
                                   // style: TextStyle(
@@ -101,7 +125,7 @@ class _NewPatientListState extends State<NewPatientList> {
                               children: [
                                 Text('Age:  '),
                                 Text(
-                                  patients[index].age.toString(),
+                                  _apiResponse.data[index].dob.toString(),
                                   style: smallTextBlackBoldStyle,
                                 ),
                               ],
@@ -113,7 +137,7 @@ class _NewPatientListState extends State<NewPatientList> {
                               children: [
                                 Text('Phone No:  '),
                                 Text(
-                                  patients[index].phone.toString(),
+                                  _apiResponse.data[index].phone.toString(),
                                   style: smallTextBlackBoldStyle,
                                 ),
                               ],
