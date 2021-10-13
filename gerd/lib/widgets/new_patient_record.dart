@@ -8,8 +8,9 @@ import 'package:intl/intl.dart';
 import 'button.dart';
 
 class NewPatientRecord extends StatefulWidget {
-  const NewPatientRecord({Key key,
-  // this.dob
+  const NewPatientRecord({
+    Key key,
+    // this.dob
   }) : super(key: key);
 
   // final DateTime dob;
@@ -51,6 +52,28 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
         child: Container(
           child: Column(
             children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 10, 0, 15),
+                alignment: Alignment.center,
+                child: Text(
+                  'Add Test Records',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Date of Test',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
               TextInputDate(
                 icon: FontAwesomeIcons.calendar,
                 hint: _selectedTestDate == null
@@ -69,6 +92,17 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
               SizedBox(
                 height: size_8,
               ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Age of Onset',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
               TextInputN(
                 hint: 'Enter age of onset ',
                 inputType: TextInputType.number,
@@ -84,6 +118,17 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
               SizedBox(
                 height: size_8,
               ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Length of LES Damage ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
               TextInputN(
                 hint: 'Enter length of LES damage ',
                 inputType: TextInputType.number,
@@ -97,7 +142,7 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
                 // textEditingController: _searchController,
               ),
               SizedBox(
-                height: size_16,
+                height: 25,
               ),
               Button(
                 buttonName: 'Save Record',
@@ -107,8 +152,10 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
                 widthInc: 1,
                 heightInc: 0.07,
               ),
+              SizedBox(
+                height: 40,
+              ),
               // Text(_ageCalculate().toString())
-
             ],
           ),
         ),

@@ -41,10 +41,10 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        backgroundColor: background,
-        body: Center(
-            child: Container(
+      appBar: AppBar(),
+      backgroundColor: background,
+      body: Center(
+        child: Container(
           padding: EdgeInsets.only(
             left: 15,
             right: 15,
@@ -184,7 +184,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
           ),
-        )));
+        ),
+      ),
+    );
   }
 
   Future registerUser() async {

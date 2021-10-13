@@ -19,6 +19,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  String name = Preference.getString('name');
   final List<PatientTest> patients = [
     PatientTest(
       id: 'p1',
@@ -59,14 +60,15 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         WidgetSpan(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 2.0),
                             child: Icon(
                               FontAwesomeIcons.solidUser,
                               size: 15,
                             ),
                           ),
                         ),
-                        TextSpan(text: 'abc', style: TextStyle(fontSize: 20)),
+                        TextSpan(text: name, style: TextStyle(fontSize: 20)),
                       ],
                     ),
                   ),

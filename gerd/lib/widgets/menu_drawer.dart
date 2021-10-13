@@ -28,7 +28,9 @@ class _MenuDrawerState extends State<MenuDrawer> {
                         elevation: 10,
                         child: Padding(
                           padding: EdgeInsets.all(8),
-                          child: Image.asset('assets/user.png'),
+                          child: Image.asset(
+                            'assets/user.png',
+                          ),
                         ),
                       ),
                       Padding(

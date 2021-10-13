@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gerd/helpers/colors.dart';
 import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/size.dart';
-import 'package:gerd/model/patient.dart';
+import 'package:gerd/model/patient_new.dart';
+import 'package:gerd/service/add_patient_service.dart';
 import 'package:gerd/widgets/new_patient_record.dart';
 import 'package:gerd/widgets/patient_record%20_list.dart';
 import 'package:gerd/widgets/text_inputs_date.dart';
 import 'package:gerd/widgets/widgets.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert' show json;
+import 'dart:convert';
+import 'dart:convert' show jsonDecode;
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/cupertino.dart';
+
+// import 'package:gerd/helpers/string.dart';
+import 'package:gerd/model/api_response_model.dart';
+import 'package:gerd/widgets/button.dart';
+import 'package:gerd/widgets/show_dialog.dart';
+import 'package:gerd/widgets/snack_bar.dart';
+import 'package:gerd/widgets/text_inputs.dart';
+import 'package:get_it/get_it.dart';
 
 class AddPatient extends StatefulWidget {
   const AddPatient({
@@ -29,9 +46,19 @@ class AddPatient extends StatefulWidget {
 }
 
 class _AddPatientState extends State<AddPatient> {
+  AddPatientService get addPatientService =>
+      GetIt.instance<AddPatientService>();
+
+  ResponseModel responseModel;
+
   TextEditingController _phoneNoController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _dobController = TextEditingController();
+  TextEditingController _ageController = TextEditingController();
+
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  ShowToast toast = new ShowToast();
 
   @override
   void initState() {
@@ -59,8 +86,9 @@ class _AddPatientState extends State<AddPatient> {
         return;
       }
       setState(() {
+        String selectedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
         _selectedBirthDate = pickedDate;
-        // _dobController.text = _selectedBirthDate as String;
+        _dobController.text = selectedDate;
       });
     });
   }
@@ -117,6 +145,12 @@ class _AddPatientState extends State<AddPatient> {
               height: 36,
               readonly: false,
               textEditingController: _nameController,
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return "Please enter name";
+                }
+                return null;
+              },
             ),
             SizedBox(
               height: size_8,
@@ -171,7 +205,7 @@ class _AddPatientState extends State<AddPatient> {
                       TextInputDate(
                         hint: _selectedBirthDate == null
                             ? 'Select Date Of Birth'
-                            : DateFormat('dd,MM,yyyy')
+                            : DateFormat('yyyy-MM-dd')
                                 .format(_selectedBirthDate),
                         inputType: TextInputType.text,
                         inputAction: null,
@@ -216,6 +250,7 @@ class _AddPatientState extends State<AddPatient> {
                         padding: 0,
                         height: 36,
                         readonly: false,
+                        textEditingController: _ageController,
                       ),
                     ],
                   ),
@@ -310,7 +345,9 @@ class _AddPatientState extends State<AddPatient> {
             //   endIndent: 20,
             // ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                _addNew_patient(context);
+              },
               child: Card(
                 color: Colors.lightBlue[200],
                 margin: EdgeInsets.only(bottom: size_8),
@@ -350,7 +387,18 @@ class _AddPatientState extends State<AddPatient> {
                       ? 'Edit Patient'
                       : 'Add Patient',
                   onTap: () {
-                    _addNew_patient(context);
+                    // if (_formkey.currentState.validate() &
+                    //         widget.isNewPatient ==
+                    //     true) {
+                    //   registerUser();
+                    // } else {
+                    //   _addNew_patient(context);
+                    // }
+                    if (widget.isNewPatient == true) {
+                      _addNew_patient(context);
+                    } else {
+                      registerUser();
+                    }
                   },
                   widthInc: 1,
                   heightInc: 0.07,
@@ -361,5 +409,55 @@ class _AddPatientState extends State<AddPatient> {
         ),
       ),
     );
+  }
+
+  Future registerUser() async {
+    // int age = 27;
+    setState(() {
+      _isLoading = true;
+    });
+    // String token = 'Bearer' + " " + Preference.getString('token');
+    String token =
+        // 'Bearer' + " " + '25|AnHo9SSFrO22dw0gY21NjQSUFRXwMG5PVQb9UiuL';
+        // 'Bearer' + " " + '14|atZ5A5m7HU9dtcFXd1YURwOUw9vbzXf2uHnm94Vu';
+        'Bearer' + " " + '29|MgaOS0XTZDpcL4PgWBdETdsRyb0GjiAUPmgPwJQr';
+    // var dt = new DateTime.now();
+    // var str = JSON.encode(dt, toEncodable: myEncode);
+    toast.showToast(_dobController.text);
+    final register = PatientNew(
+      name: _nameController.text,
+      dob: _dobController.text,
+      phoneNumber: _phoneNoController.text,
+      age: _ageController.text,
+    );
+    final result = await addPatientService.addPatient(register, token);
+
+    setState(() {
+      _isLoading = false;
+    });
+    final title = 'Done';
+
+    // final text = result.error
+    //     ? (result.errorMessage ?? 'An error occurred')
+    //     : result.data.message;
+
+    if (result.error) {
+      SnackBarWidget.buildSnackbar(context, result.error);
+    } else {
+      if (result.data.status == 200) {
+        ShowDialog(
+          title: title,
+          text: result.data.message,
+          btn: 'Ok',
+          onPress: () => Navigator.pushNamed(context, '/'),
+        );
+      } else {
+        showSnackBar(result.data.message);
+      }
+    }
+  }
+
+  showSnackBar(String message) {
+    SnackBarWidget.buildSnackbar(context, message);
   }
 }
