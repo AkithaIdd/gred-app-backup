@@ -27,6 +27,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+<<<<<<< HEAD
   // GetPatientListService get addPatientService =>GetIt.instance<GetPatientListService>();
   GetPatientListService get getPatientService =>
       GetIt.instance<GetPatientListService>();
@@ -52,6 +53,28 @@ class _DashboardState extends State<Dashboard> {
       _isLoading = false;
     });
   }
+=======
+  // final List<PatientList> patients = [
+  //   PatientList(
+  //     id: 'p1',
+  //     name: 'Akitha Iddamalgoda',
+  //     age: 50,
+  //     phone: 0779033811,
+  //   ),
+  //   PatientList(
+  //     id: 'p2',
+  //     name: 'Akitha Iddamalgoda',
+  //     age: 60,
+  //     phone: 0713465865,
+  //   ),
+  //   PatientList(
+  //     id: 'p3',
+  //     name: 'Akitha Iddamalgoda',
+  //     age: 70,
+  //     phone: 0713465865,
+  //   ),
+  // ];
+>>>>>>> bbc49b33f038c9385cca39f2e754f63850ef4ae9
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +192,7 @@ class _DashboardState extends State<Dashboard> {
                   height: 4,
                 ),
                 // PatientList(patients),
+<<<<<<< HEAD
 
                 // NewPatientList(),
                 Builder(
@@ -340,6 +364,9 @@ class _DashboardState extends State<Dashboard> {
                     );
                   },
                 ),
+=======
+                // NewPatientList(),
+>>>>>>> bbc49b33f038c9385cca39f2e754f63850ef4ae9
               ],
             ),
           ),

@@ -355,9 +355,19 @@ class _AddPatientState extends State<AddPatient> {
                 ),
               ],
             ),
+<<<<<<< HEAD
             SizedBox(
               height: 18,
             ),
+=======
+
+            // const Divider(
+            //   height: 20,
+            //   thickness: 5,
+            //   indent: 20,
+            //   endIndent: 20,
+            // ),
+>>>>>>> bbc49b33f038c9385cca39f2e754f63850ef4ae9
             InkWell(
               onTap: () {
                 _addNew_patient(context);

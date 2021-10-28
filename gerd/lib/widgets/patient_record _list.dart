@@ -74,6 +74,7 @@ class _NewPatientRecordListState extends State<NewPatientRecordList> {
 
     return SingleChildScrollView(
       child: Container(
+
         color: Colors.transparent,
         margin: EdgeInsets.symmetric(vertical: 4),
         child: Builder(builder: (_) {

@@ -1,12 +1,10 @@
 //hint
-const String ENTER_YOUR_USERNAME = "Enter your username";
-const String ENTER_YOUR_PASSWORD = "Enter your password";
+const String ENTER_YOUR_USERNAME = "Enter Your Username";
+const String ENTER_YOUR_PASSWORD = "Enter Your Password";
 const String ENTER_YOUR_CURRENT_PASSWORD = "Enter your current password";
 const String ENTER_YOUR_NEW_PASSWORD = "Enter your new password";
 const String ENTER_YOUR_CONFIRMED_PASSWORD = "Enter your confirmed password";
 const String ENTER_YOUR_EMAIL = "Enter your email";
-const String ENTER_YOUR_NAME = "Enter your name";
-const String ENTER_YOUR_PHONE = "Enter your phone number";
 
 //api name
 const String login = "MobileLogin";
@@ -35,7 +33,6 @@ const String settings_server_details = "Server Details";
 const String settings_remember = "Remember";
 const String APP_NAME = "GERD APP";
 const String REGISTER = "Register";
-const String Register = "REGISTER";
 const String changePassword = "Change Password";
 const String forgotPassword = "Forgot Password";
 
@@ -51,9 +48,6 @@ const asureEndPoint = '/api/Mobile/';
 const String SUBSCRIPTION_ID_VAL = "SID-00001";
 const String SESSION_TIME_OUT_VAL = "60";
 const String CANCEL = "Cancel";
-const String NAME = "Name";
-const String PHONE = "Phone Number";
-const String PASSWORD = "Password";
 const String CHANGE_PASSWORD = "CHANGE PASSWORD";
 const String CONFIRM_PASSWORD = "Confirm Password";
 const String NEW_PASSWORD = "New Password";
