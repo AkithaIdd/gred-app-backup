@@ -1,3 +1,4 @@
+import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,10 @@ class TextInputN extends StatelessWidget {
           onTap: setDate,
           controller: textEditingController,
           decoration: InputDecoration(
+            
             labelText: labelText,
+            fillColor: white,
+            filled: true,
             contentPadding: EdgeInsets.only(top: 8, left: 8),
             enabledBorder: const OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey, width: 0.0),

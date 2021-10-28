@@ -39,8 +39,8 @@ class _MenuDrawerState extends State<MenuDrawer> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 20),
-                          child: Text(
-                            Preference.getString('username'),
+                          child: Text("akitha",
+                            // Preference.getString('username'),
                             style: smallTextBlackBoldStyle,
                           ),
                         )
@@ -57,6 +57,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
                   'Profile',
                   style: largeTextBlackBoldStyle,
                 ),
+
                 onTap: () {
                   // Update the state of the app
                   Navigator.pushReplacementNamed(context, 'profile');
