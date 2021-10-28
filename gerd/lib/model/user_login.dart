@@ -9,25 +9,21 @@ class UserLogin {
   int status;
   String message;
 
-  UserLogin(
-      {
-        @required this.email,
-        @required this.password,
-        @required this.name,
-        @required this.id,
-        @required this.token,
-      }
-      );
+  UserLogin({
+    @required this.email,
+    @required this.password,
+    @required this.name,
+    @required this.id,
+    @required this.token,
+  });
 
   Map<String, dynamic> toJson() {
-    return {
-      "email": email,
-      "password": password
-    };
+    return {"email": email, "password": password};
   }
-  UserLogin.fromJson(Map<String, dynamic> item){
+
+  UserLogin.fromJson(Map<String, dynamic> item) {
     this.id = item['id'];
-    this.name = item['name'];
+    this.name = item['user'];
     this.email = item['email'];
     this.token = item['token'];
     this.status = item['status'];
@@ -35,5 +31,4 @@ class UserLogin {
 
     print(name);
   }
-
 }

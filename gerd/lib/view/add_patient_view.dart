@@ -4,19 +4,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gerd/helpers/colors.dart';
 import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/size.dart';
+import 'package:gerd/model/api_response.dart';
+import 'package:gerd/model/pId.dart';
 import 'package:gerd/model/patient_new.dart';
+import 'package:gerd/model/patient_record.dart';
+import 'package:gerd/model/patient_test.dart';
 import 'package:gerd/service/add_patient_service.dart';
+import 'package:gerd/service/get_patient_list_service.dart';
+import 'package:gerd/service/get_patient_records_list_service.dart';
 import 'package:gerd/widgets/new_patient_record.dart';
 import 'package:gerd/widgets/patient_record%20_list.dart';
 import 'package:gerd/widgets/text_inputs_date.dart';
 import 'package:gerd/widgets/widgets.dart';
 import 'package:intl/intl.dart';
-import 'dart:convert' show json;
-import 'dart:convert';
-import 'dart:convert' show jsonDecode;
+import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 
 // import 'package:gerd/helpers/string.dart';
@@ -31,14 +34,16 @@ class AddPatient extends StatefulWidget {
   const AddPatient({
     Key key,
     this.pname,
+    this.id,
     this.phoneNo,
     this.dob,
     this.isNewPatient,
   }) : super(key: key);
 
   final String pname;
+  final int id;
   final int phoneNo;
-  final DateTime dob;
+  final String dob;
   final bool isNewPatient;
 
   @override
@@ -49,7 +54,16 @@ class _AddPatientState extends State<AddPatient> {
   AddPatientService get addPatientService =>
       GetIt.instance<AddPatientService>();
 
+  GetPatientRecordsListService get getPatientRecordsService =>
+      GetIt.instance<GetPatientRecordsListService>();
   ResponseModel responseModel;
+
+  final List<PatientRecord> patients = [];
+
+  // pId paID = Preference.getString('patientId');
+  // String paID = Preference.getString('patientId');
+
+  pId patId = pId(patientId: Preference.getString('patientId'));
 
   TextEditingController _phoneNoController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -60,14 +74,68 @@ class _AddPatientState extends State<AddPatient> {
 
   ShowToast toast = new ShowToast();
 
+  APIResponse<List<PatientRecord>> _apiResponse;
+
   @override
   void initState() {
+    _fetchPatientRecords();
     super.initState();
 
-    if (widget.phoneNo != null && widget.pname != null) {
+    if (widget.isNewPatient == false) {
       _nameController.text = widget.pname;
       _phoneNoController.text = widget.phoneNo.toString();
+      _dobController.text = widget.dob;
+      DateTime birthDate = new DateFormat("yyyy-MM-dd").parse(
+        widget.dob,
+      );
+      DateTime currentDate = DateTime.now();
+      int age = currentDate.year - birthDate.year;
+      int month1 = currentDate.month;
+      int month2 = birthDate.month;
+      if (month2 > month1) {
+        age--;
+      } else if (month1 == month2) {
+        int day1 = currentDate.day;
+        int day2 = birthDate.day;
+        if (day2 > day1) {
+          age--;
+        }
+      }
+      _ageController.text = age.toString();
+      _dobController.addListener(() {
+        DateTime birthDate = new DateFormat("yyyy-MM-dd").parse(
+          widget.dob,
+        );
+        DateTime currentDate = DateTime.now();
+        int age = currentDate.year - birthDate.year;
+        int month1 = currentDate.month;
+        int month2 = birthDate.month;
+        if (month2 > month1) {
+          age--;
+        } else if (month1 == month2) {
+          int day1 = currentDate.day;
+          int day2 = birthDate.day;
+          if (day2 > day1) {
+            age--;
+          }
+        }
+        _ageController.text = age.toString();
+      });
     }
+  }
+
+  _fetchPatientRecords() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    pId patId = pId(patientId: Preference.getString('id'));
+
+    _apiResponse = await getPatientRecordsService.getPatientRecordsList(patId);
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   DateTime _selectedBirthDate;
@@ -96,10 +164,14 @@ class _AddPatientState extends State<AddPatient> {
   void _addNew_patient(BuildContext context) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (_) {
-          return GestureDetector(
-            onTap: () {},
-            child: NewPatientRecord(),
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: GestureDetector(
+              onTap: () {},
+              child: NewPatientRecord(),
+            ),
           );
         });
   }
@@ -110,7 +182,10 @@ class _AddPatientState extends State<AddPatient> {
       backgroundColor: background,
       appBar: AppBar(
         title: Text(
-          widget.isNewPatient == false ? 'Patient Details' : 'Add New Patient',
+          Preference.getBool('isNewPatient') == false
+              ? 'Patient Details'
+              : 'Add New Patient',
+          // widget.isNewPatient == false ? 'Patient Details' : 'Add New Patient',
         ),
         centerTitle: true,
       ),
@@ -135,7 +210,7 @@ class _AddPatientState extends State<AddPatient> {
               ),
             ),
             TextInputN(
-              // labelText: 'Name',
+              // labelText: Preference.getString('name'),
               hint: 'Enter your name',
               inputType: TextInputType.name,
               inputAction: TextInputAction.next,
@@ -169,6 +244,7 @@ class _AddPatientState extends State<AddPatient> {
             ),
             TextInputN(
               // labelText: 'Name',
+              // labelText: Preference.getString('phone'),
               hint: 'Enter phone number',
               inputType: TextInputType.number,
               inputAction: TextInputAction.next,
@@ -241,7 +317,7 @@ class _AddPatientState extends State<AddPatient> {
                         ),
                       ),
                       TextInputN(
-                        // labelText: 'Name',
+                        // labelText: age,
                         hint: 'Age',
                         inputType: TextInputType.number,
                         inputAction: TextInputAction.next,
@@ -257,75 +333,16 @@ class _AddPatientState extends State<AddPatient> {
                 ),
               ],
             ),
-
-            // Row(
-            //   children: <Widget>[
-            //     Column(children: [Expanded(
-            //       child: Text(
-            //         "Date of Birth",
-            //         style: TextStyle(
-            //           fontWeight: FontWeight.bold,
-            //           fontSize: 16,
-            //         ),
-            //         textAlign: TextAlign.start,
-            //       ),
-            //     ),
-            //     Expanded(
-            //       child: TextInputDate(
-            //         hint: _selectedBirthDate == null
-            //             ? 'Select Date Of Birth'
-            //             : DateFormat('dd,MM,yyyy').format(_selectedBirthDate),
-            //         inputType: TextInputType.text,
-            //         inputAction: null,
-            //         backgroundColor: Colors.white,
-            //         icon: FontAwesomeIcons.calendar,
-            //         width: double.infinity,
-            //         padding: 0,
-            //         height: 36,
-            //         readonly: true,
-            //         setDate: _ageDatePicker,
-            //         textEditingController: _dobController,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-
-            // Container(
-            //   margin: EdgeInsets.only(left: 5),
-            //   alignment: Alignment.centerLeft,
-            //   child: Text(
-            //     "Date of Birth",
-            //     style: TextStyle(
-            //       fontWeight: FontWeight.bold,
-            //       fontSize: 16,
-            //     ),
-            //     textAlign: TextAlign.start,
-            //   ),
-            // ),
-            // TextInputDate(
-            //   hint: _selectedBirthDate == null
-            //       ? 'Select Date Of Birth'
-            //       : DateFormat('dd,MM,yyyy').format(_selectedBirthDate),
-            //   inputType: TextInputType.text,
-            //   inputAction: null,
-            //   backgroundColor: Colors.white,
-            //   icon: FontAwesomeIcons.calendar,
-            //   width: double.infinity,
-            //   padding: 0,
-            //   height: 36,
-            //   readonly: true,
-            //   setDate: _ageDatePicker,
-            //   textEditingController: _dobController,
-            // ),
             SizedBox(
-              height: size_8,
+              height: 18,
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                    child: Divider(
-                  thickness: 3,
-                )),
+                  child: Divider(
+                    thickness: 3,
+                  ),
+                ),
                 Text(
                   'LES Damage Result',
                   style: TextStyle(
@@ -338,12 +355,9 @@ class _AddPatientState extends State<AddPatient> {
                 ),
               ],
             ),
-            // const Divider(
-            //   height: 20,
-            //   thickness: 5,
-            //   indent: 20,
-            //   endIndent: 20,
-            // ),
+            SizedBox(
+              height: 18,
+            ),
             InkWell(
               onTap: () {
                 _addNew_patient(context);
@@ -378,27 +392,173 @@ class _AddPatientState extends State<AddPatient> {
                 ),
               ),
             ),
-            NewPatientRecordList(),
+            // NewPatientRecordList(),
+            Builder(
+              builder: (_) {
+                if (_isLoading) {
+                  return CircularProgressIndicator();
+                }
+
+                if (_apiResponse.error) {
+                  return Center(child: Text(_apiResponse.errorMessage));
+                }
+                return Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      // separatorBuilder: (_, __) => Divider(
+                      //   height: 10,
+                      // ),
+                      itemBuilder: (_, index) {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Card(
+                            key: ValueKey(_apiResponse.data[index].patientId),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Date Of Test: ',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          Text(
+                                            _apiResponse
+                                                .data[index].date_of_test,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Length Of LES Damage: ',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            _apiResponse
+                                                .data[index].length_of_les,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    // InkWell(
+                                    //   onTap: () {
+                                    //     Preference.setString(
+                                    //       'name',
+                                    //       _apiResponse.data[index].name,
+                                    //     );
+                                    //     Navigator.pushNamed(
+                                    //         context, 'addPatient');
+                                    //   },
+                                    // ),
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(0, 5, 10, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Age: ',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          Text(
+                                            _ageController.text,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(0, 5, 10, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Onset: ',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            _apiResponse
+                                                .data[index].age_of_onset,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: _apiResponse.data.length,
+                    ),
+                  ),
+                );
+              },
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Button(
-                  buttonName: widget.isNewPatient == false
+                  buttonName: Preference.getBool('isNewPatient') == false
                       ? 'Edit Patient'
                       : 'Add Patient',
                   onTap: () {
-                    // if (_formkey.currentState.validate() &
-                    //         widget.isNewPatient ==
-                    //     true) {
-                    //   registerUser();
-                    // } else {
-                    //   _addNew_patient(context);
-                    // }
                     if (widget.isNewPatient == true) {
                       _addNew_patient(context);
                     } else {
-                      registerUser();
+                      addPatient();
                     }
+                    Navigator.pop(context);
                   },
                   widthInc: 1,
                   heightInc: 0.07,
@@ -411,19 +571,13 @@ class _AddPatientState extends State<AddPatient> {
     );
   }
 
-  Future registerUser() async {
+  Future addPatient() async {
     // int age = 27;
     setState(() {
       _isLoading = true;
     });
-    // String token = 'Bearer' + " " + Preference.getString('token');
-    String token =
-        // 'Bearer' + " " + '25|AnHo9SSFrO22dw0gY21NjQSUFRXwMG5PVQb9UiuL';
-        // 'Bearer' + " " + '14|atZ5A5m7HU9dtcFXd1YURwOUw9vbzXf2uHnm94Vu';
-        'Bearer' + " " + '29|MgaOS0XTZDpcL4PgWBdETdsRyb0GjiAUPmgPwJQr';
-    // var dt = new DateTime.now();
-    // var str = JSON.encode(dt, toEncodable: myEncode);
-    toast.showToast(_dobController.text);
+    String token = 'Bearer' + " " + Preference.getString('token');
+    toast.showToast('Patient Added Succesfully');
     final register = PatientNew(
       name: _nameController.text,
       dob: _dobController.text,
@@ -437,10 +591,6 @@ class _AddPatientState extends State<AddPatient> {
     });
     final title = 'Done';
 
-    // final text = result.error
-    //     ? (result.errorMessage ?? 'An error occurred')
-    //     : result.data.message;
-
     if (result.error) {
       SnackBarWidget.buildSnackbar(context, result.error);
     } else {
@@ -449,7 +599,7 @@ class _AddPatientState extends State<AddPatient> {
           title: title,
           text: result.data.message,
           btn: 'Ok',
-          onPress: () => Navigator.pushNamed(context, '/'),
+          onPress: () => Navigator.pop(context, true),
         );
       } else {
         showSnackBar(result.data.message);

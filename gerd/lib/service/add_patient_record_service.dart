@@ -3,17 +3,22 @@ import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/model/api_response.dart';
 import 'package:gerd/model/api_response_model.dart';
 import 'package:gerd/model/patient_new.dart';
+import 'package:gerd/model/patient_record.dart';
+import 'package:gerd/model/user_login.dart';
+import 'package:gerd/model/user_register.dart';
+import 'package:gerd/view/add_patient_view.dart';
 import 'package:http/http.dart' as http;
 
-class AddPatientService {
+class AddPatientRecordService {
   ResponseModel responseModel;
   static const API = BaseUrl;
   // String x = 'Bearer' + Preference.getString('token');
   static const headers = {};
-  Future<APIResponse<ResponseModel>> addPatient(PatientNew item, String token) {
+  Future<APIResponse<ResponseModel>> addPatientRecord(
+      PatientRecord item, String token) {
     return http
         .post(
-      Uri.parse(API + '/addPatient'),
+      Uri.parse(API + '/addPatientRecord'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

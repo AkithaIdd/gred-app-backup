@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gerd/service/add_patient_record_service.dart';
+import 'package:gerd/service/get_patient_list_service.dart';
+import 'package:gerd/service/get_patient_records_list_service.dart';
 import 'package:gerd/service/register_service.dart';
 import 'package:gerd/view/add_patient_view.dart';
 import 'package:gerd/view/change_password.dart';
@@ -18,6 +21,9 @@ void setupLocator() {
   // GetIt.instance.registerLazySingleton(() => LoginService());
   GetIt.instance.registerLazySingleton(() => RegisterService());
   GetIt.instance.registerLazySingleton(() => AddPatientService());
+  GetIt.instance.registerLazySingleton(() => AddPatientRecordService());
+  GetIt.instance.registerLazySingleton(() => GetPatientListService());
+  GetIt.instance.registerLazySingleton(() => GetPatientRecordsListService());
 }
 
 void main() async {

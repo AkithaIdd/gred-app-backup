@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gerd/helpers/colors.dart';
 import 'package:gerd/helpers/helpers.dart';
 import 'package:gerd/helpers/style.dart';
@@ -15,77 +16,108 @@ class _MenuDrawerState extends State<MenuDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.blue[200],
       child: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-                decoration: BoxDecoration(color: primaryLight),
-                child: Container(
-                  child: Column(
-                    children: [
-                      Material(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        elevation: 10,
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Image.asset(
-                            'assets/user.png',
+        child: Container(
+          color: Colors.blue[100],
+          child: ListView(
+            children: [
+              DrawerHeader(
+                  decoration: BoxDecoration(color: white),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Material(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          elevation: 10,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Image.asset(
+                              'assets/user.png',
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
-                          'User Name',
-                          style: smallTextBlackBoldStyle,
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-            ListTile(
-              title: const Text(
-                'Profile',
-                style: largeTextBlackBoldStyle,
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text(
+                            Preference.getString('username'),
+                            style: smallTextBlackBoldStyle,
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+              ListTile(
+                leading: Icon(
+                  FontAwesomeIcons.solidUser,
+                  color: Colors.blue[800],
+                  size: 30,
+                ),
+                title: const Text(
+                  'Profile',
+                  style: largeTextBlackBoldStyle,
+                ),
+                onTap: () {
+                  // Update the state of the app
+                  Navigator.pushReplacementNamed(context, 'profile');
+                  // Then close the drawer
+                  // Navigator.pop(context);
+                },
               ),
-              onTap: () {
-                // Update the state of the app
-                Navigator.pushReplacementNamed(context, 'profile');
-                // Then close the drawer
-                // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text(
-                'Change Password',
-                style: largeTextBlackBoldStyle,
+              Divider(
+                color: Colors.blue[400],
+                thickness: 1,
               ),
-              onTap: () {
-                // Update the state of the app
-                Navigator.pushReplacementNamed(context, 'changePassword');
-                // Then close the drawer
-                // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text(
-                'Logout',
-                style: largeTextBlackBoldStyle,
+              ListTile(
+                leading: Icon(
+                  FontAwesomeIcons.lockOpen,
+                  color: Colors.blue[800],
+                  size: 30,
+                ),
+                title: const Text(
+                  'Change Password',
+                  style: largeTextBlackBoldStyle,
+                ),
+                onTap: () {
+                  // Update the state of the app
+                  Navigator.pushReplacementNamed(context, 'changePassword');
+                  // Then close the drawer
+                  // Navigator.pop(context);
+                },
               ),
-              onTap: () async {
-                await showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return dialogLogout();
-                    });
+              Divider(
+                color: Colors.blue[400],
+                thickness: 1,
+              ),
+              ListTile(
+                leading: Icon(
+                  FontAwesomeIcons.signOutAlt,
+                  color: Colors.blue[800],
+                  size: 30,
+                ),
+                title: const Text(
+                  'Logout',
+                  style: largeTextBlackBoldStyle,
+                ),
+                onTap: () async {
+                  await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return dialogLogout();
+                      });
 
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                // Navigator.pop(context);
-              },
-            ),
-          ],
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  // Navigator.pop(context);
+                },
+              ),
+              Divider(
+                color: Colors.blue[400],
+                thickness: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );

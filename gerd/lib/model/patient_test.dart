@@ -1,15 +1,14 @@
 import 'package:flutter/foundation.dart';
 
 class PatientTest {
-  final String id;
+  final int id;
   final String name;
   final int age;
   final int phone;
-  final DateTime dob;
+  final String dob;
   // final DateTime testDate;
   // final int ageOfOnset;
   // final double damageLength;
-
 
   PatientTest({
     @required this.id,
@@ -20,6 +19,5 @@ class PatientTest {
     // @required this.testDate,
     // @required this.ageOfOnset,
     // @required this.damageLength,
-
   });
 }

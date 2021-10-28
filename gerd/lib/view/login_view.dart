@@ -511,8 +511,7 @@ class _LoginViewState extends State<LoginView> {
 
     if (result.data.status == 200) {
       Preference.setString('token', result.data.token);
-      Preference.setString('name', result.data.name);
-
+      Preference.setString('username', result.data.name);
       Navigator.pushNamed(context, 'dashboard_new');
     }
     SnackBarWidget.buildSnackbar(context, text);
