@@ -111,13 +111,13 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
               Container(
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 15),
                 alignment: Alignment.center,
-                child: Text(
-                  'Add Test Records',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
+                // child: Text(
+                //   'Add Test Records',
+                //   style: TextStyle(
+                //     fontWeight: FontWeight.bold,
+                //     fontSize: 20,
+                //   ),
+                // ),
               ),
               Container(
                 margin: EdgeInsets.only(left: 10),
@@ -201,7 +201,7 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
                 height: 25,
               ),
               Button(
-                buttonName: 'Save Record',
+                buttonName: 'Save',
                 onTap: () {
                   setState(() {
                     addPatientRecord();

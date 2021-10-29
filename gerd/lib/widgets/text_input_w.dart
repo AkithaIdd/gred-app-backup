@@ -3,6 +3,7 @@ import 'package:gerd/helpers/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class TextInputWithIcon extends StatelessWidget {
   const TextInputWithIcon({
     Key key,
@@ -12,13 +13,11 @@ class TextInputWithIcon extends StatelessWidget {
     this.inputAction,
     this.textEditingController,
     this.onTap,
-    this.isObscure,
     this.validator,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
-  final bool isObscure;
   final TextInputType inputType;
   final TextInputAction inputAction;
   final TextEditingController textEditingController;
@@ -31,6 +30,7 @@ class TextInputWithIcon extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
+
         height: size.height * 0.06,
         width: size.width * 0.9,
         decoration: BoxDecoration(
@@ -40,11 +40,11 @@ class TextInputWithIcon extends StatelessWidget {
         child: Center(
           child: TextFormField(
             validator: validator,
-            obscureText: isObscure,
             onTap: onTap,
-            obscuringCharacter: "•",
+            obscuringCharacter: "*",
             controller: textEditingController,
             decoration: InputDecoration(
+
               border: InputBorder.none,
               prefixIcon: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -65,4 +65,5 @@ class TextInputWithIcon extends StatelessWidget {
       ),
     );
   }
+
 }

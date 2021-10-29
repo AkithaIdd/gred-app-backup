@@ -47,10 +47,7 @@ class _DashboardState extends State<Dashboard> {
       _isLoading = false;
     });
   }
-<<<<<<< HEAD
-=======
 
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
 
   @override
   Widget build(BuildContext context) {
@@ -177,136 +174,133 @@ class _DashboardState extends State<Dashboard> {
                     if (_apiResponse.error) {
                       return Center(child: Text(_apiResponse.errorMessage));
                     }
-                    return Padding(
-                      padding: EdgeInsets.only(right: 5, left: 5),
-                      child: Expanded(
-                        child: SizedBox(
-                          height: 200,
-                          child: ListView.builder(
-                            // separatorBuilder: (_, __) => Divider(
-                            //   height: 10,
-                            // ),
-                            itemBuilder: (_, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => AddPatient(
-                                  //       pname: _apiResponse.data[index].name,
-                                  //       phoneNo: _apiResponse.data[index].phone,
-                                  //       dob: _apiResponse.data[index].dob,
-                                  //       id: _apiResponse.data[index].id,
-                                  //       isNewPatient: false,
-                                  //     ),
-                                  //   ),
-                                  // );
+                    return Expanded(
+                      child: SizedBox(
+                        height: 200,
+                        child: ListView.builder(
+                          // separatorBuilder: (_, __) => Divider(
+                          //   height: 10,
+                          // ),
+                          itemBuilder: (_, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                // Navigator.of(context).push(
+                                //   MaterialPageRoute(
+                                //     builder: (context) => AddPatient(
+                                //       pname: _apiResponse.data[index].name,
+                                //       phoneNo: _apiResponse.data[index].phone,
+                                //       dob: _apiResponse.data[index].dob,
+                                //       id: _apiResponse.data[index].id,
+                                //       isNewPatient: false,
+                                //     ),
+                                //   ),
+                                // );
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddPatient(
-                                        pname: _apiResponse.data[index].name,
-                                        phoneNo: _apiResponse.data[index].phone,
-                                        dob: _apiResponse.data[index].dob,
-                                        id: _apiResponse.data[index].id,
-                                        isNewPatient: false,
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddPatient(
+                                      pname: _apiResponse.data[index].name,
+                                      phoneNo: _apiResponse.data[index].phone,
+                                      dob: _apiResponse.data[index].dob,
+                                      id: _apiResponse.data[index].id,
+                                      isNewPatient: false,
+                                    ),
+                                  ),
+                                );
+
+                              },
+                              child: Card(
+                                key: ValueKey(_apiResponse.data[index].id),
+                                child: Column(
+                                  children: <Widget>[
+                                    // InkWell(
+                                    //   onTap: () {
+                                    //     Preference.setString(
+                                    //       'name',
+                                    //       _apiResponse.data[index].name,
+                                    //     );
+                                    //     Navigator.pushNamed(
+                                    //         context, 'addPatient');
+                                    //   },
+                                    // ),
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Name : ',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          Text(
+                                            _apiResponse.data[index].name,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  );
-
-                                },
-                                child: Card(
-                                  key: ValueKey(_apiResponse.data[index].id),
-                                  child: Column(
-                                    children: <Widget>[
-                                      // InkWell(
-                                      //   onTap: () {
-                                      //     Preference.setString(
-                                      //       'name',
-                                      //       _apiResponse.data[index].name,
-                                      //     );
-                                      //     Navigator.pushNamed(
-                                      //         context, 'addPatient');
-                                      //   },
-                                      // ),
-                                      Container(
-                                        padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Name : ',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey,
-                                              ),
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Date Of Birth : ',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            Text(
-                                              _apiResponse.data[index].name,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          Text(
+                                            _apiResponse.data[index].dob,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      Container(
-                                        padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Date Of Birth : ',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 5, 0, 10),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Phone Number : ',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            Text(
-                                              _apiResponse.data[index].dob,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          Text(
+                                            _apiResponse.data[index].phone
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        ),
+                                          )
+                                        ],
                                       ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 5, 0, 10),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Phone Number : ',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              _apiResponse.data[index].phone
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              );
-                            },
-                            itemCount: _apiResponse.data.length,
-                          ),
+                              ),
+                            );
+                          },
+                          itemCount: _apiResponse.data.length,
                         ),
                       ),
                     );
@@ -317,20 +311,21 @@ class _DashboardState extends State<Dashboard> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Preference.setBool('isNewPatient', true);
-
-              Preference.setString(
-                'name',
-                '',
-              );
-              Preference.setString(
-                'phone',
-                '',
-              );
-              Preference.setString(
-                'dob',
-                '',
-              );
+              AddPatient(isNewPatient: true,);
+              // Preference.setBool('isNewPatient', true);
+              //
+              // Preference.setString(
+              //   'name',
+              //   '',
+              // );
+              // Preference.setString(
+              //   'phone',
+              //   '',
+              // );
+              // Preference.setString(
+              //   'dob',
+              //   '',
+              // );
               // Navigator.pushNamed(context, 'addPatient');
               Navigator.pushNamed(context, 'addPatient').then((_) {
                 // This block runs when you have returned back to the 1st Page from 2nd.

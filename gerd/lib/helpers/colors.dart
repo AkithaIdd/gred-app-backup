@@ -17,7 +17,7 @@ const Color cyanLight = Color(0xffe7fdfe);
 const Color gray = Color(0xfff3f5f7);
 const Color appTextAndIcon = Color(0xffffffff);
 const Color white = Color(0xffffffff);
-const Color background = Color(0xffe8eef3);
+const Color background = Color(0xffdef2ff);
 
 const Color textColor = Colors.grey;
 const Color iconColor = Color(0xff535353);

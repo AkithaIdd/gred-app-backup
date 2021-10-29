@@ -16,41 +16,27 @@ class _MenuDrawerState extends State<MenuDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: primaryLight,
+      color: Colors.blue[200],
       child: Drawer(
         child: Container(
-          color: Colors.blue[50],
+          color: Colors.blue[100],
           child: ListView(
             children: [
               DrawerHeader(
-                decoration: BoxDecoration(color: white),
-                child: Container(
-                  child: Column(
-                    children: [
-                      Material(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        elevation: 10,
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Image.asset(
-                            'assets/user.png',
+                  decoration: BoxDecoration(color: white),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Material(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          elevation: 10,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Image.asset(
+                              'assets/user.png',
+                            ),
                           ),
                         ),
-<<<<<<< HEAD
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
-                          Preference.getString('username'),
-                          style: smallTextBlackBoldStyle,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-=======
                         Padding(
                           padding: EdgeInsets.only(top: 20),
                           child: Text("akitha",
@@ -72,158 +58,64 @@ class _MenuDrawerState extends State<MenuDrawer> {
                   style: largeTextBlackBoldStyle,
                 ),
 
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
                 onTap: () {
                   // Update the state of the app
                   Navigator.pushReplacementNamed(context, 'profile');
                   // Then close the drawer
                   // Navigator.pop(context);
                 },
-                child: InkWell(
-                  onTap: () {
-                    // Update the state of the app
-                    Navigator.pushReplacementNamed(context, 'profile');
-                    // Then close the drawer
-                    // Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.solidUser,
-                        color: Colors.blue[800],
-                        size: 25,
-                      ),
-                      Text('Profile'),
-                    ],
-                  ),
-                ),
               ),
-              GestureDetector(
+              Divider(
+                color: Colors.blue[400],
+                thickness: 1,
+              ),
+              ListTile(
+                leading: Icon(
+                  FontAwesomeIcons.lockOpen,
+                  color: Colors.blue[800],
+                  size: 30,
+                ),
+                title: const Text(
+                  'Change Password',
+                  style: largeTextBlackBoldStyle,
+                ),
                 onTap: () {
                   // Update the state of the app
-                  Navigator.pushReplacementNamed(context, 'profile');
+                  Navigator.pushReplacementNamed(context, 'changePassword');
                   // Then close the drawer
                   // Navigator.pop(context);
                 },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.solidUser,
-                      color: Colors.blue[800],
-                      size: 25,
-                    ),
-                    Text('Change Password'),
-                  ],
-                ),
               ),
-              GestureDetector(
-                onTap: () {
-                  // Update the state of the app
-                  Navigator.pushReplacementNamed(context, 'profile');
-                  // Then close the drawer
-                  // Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.solidUser,
-                      color: Colors.blue[800],
-                      size: 25,
-                    ),
-                    Text('Logout'),
-                  ],
-                ),
+              Divider(
+                color: Colors.blue[400],
+                thickness: 1,
               ),
-              Container(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        FontAwesomeIcons.solidUser,
-                        color: Colors.blue[800],
-                        size: 25,
-                      ),
-                      title: const Text(
-                        'Profile',
-                        style: largeTextBlackBoldStyle,
-                      ),
-                      onTap: () {
-                        // Update the state of the app
-                        Navigator.pushReplacementNamed(context, 'profile');
-                        // Then close the drawer
-                        // Navigator.pop(context);
-                      },
-                    ),
-                    Divider(
-                      color: Colors.blue[400],
-                      thickness: 1,
-                    ),
-                  ],
+              ListTile(
+                leading: Icon(
+                  FontAwesomeIcons.signOutAlt,
+                  color: Colors.blue[800],
+                  size: 30,
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        FontAwesomeIcons.lockOpen,
-                        color: Colors.blue[800],
-                        size: 25,
-                      ),
-                      title: const Text(
-                        'Change Password',
-                        style: largeTextBlackBoldStyle,
-                      ),
-                      onTap: () {
-                        // Update the state of the app
-                        Navigator.pushReplacementNamed(
-                            context, 'changePassword');
-                        // Then close the drawer
-                        // Navigator.pop(context);
-                      },
-                    ),
-                    Divider(
-                      color: Colors.blue[400],
-                      thickness: 1,
-                    ),
-                  ],
+                title: const Text(
+                  'Logout',
+                  style: largeTextBlackBoldStyle,
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        FontAwesomeIcons.signOutAlt,
-                        color: Colors.blue[800],
-                        size: 25,
-                      ),
-                      title: const Text(
-                        'Logout',
-                        style: largeTextBlackBoldStyle,
-                      ),
-                      onTap: () async {
-                        await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return dialogLogout();
-                            });
+                onTap: () async {
+                  await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return dialogLogout();
+                      });
 
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
-                        // Navigator.pop(context);
-                      },
-                    ),
-                    Divider(
-                      color: Colors.blue[400],
-                      thickness: 1,
-                    ),
-                  ],
-                ),
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  // Navigator.pop(context);
+                },
+              ),
+              Divider(
+                color: Colors.blue[400],
+                thickness: 1,
               ),
             ],
           ),

@@ -8,10 +8,6 @@ import 'package:gerd/model/user_register.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterService {
-<<<<<<< HEAD
-  ResponseModel responseModel;
-=======
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
   static const API = BaseUrl;
   static const headers = {
     'Content-Type': 'application/json',
@@ -20,15 +16,8 @@ class RegisterService {
   };
 
   Future<APIResponse<ResponseModel>> registerUser(UserRegister item) {
-<<<<<<< HEAD
-    return http
-        .post(Uri.parse(API + '/register'),
-            headers: headers, body: json.encode(item.toJson()))
-        .then((data) {
-=======
     return http.post(Uri.parse(API + '/register'), headers: headers,
         body: json.encode(item.toJson())).then((data) {
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         return APIResponse<ResponseModel>(
@@ -36,38 +25,21 @@ class RegisterService {
       }
       return APIResponse<ResponseModel>(
           error: true, errorMessage: 'An error occurred');
-<<<<<<< HEAD
-    }).catchError((_) => APIResponse<ResponseModel>(
-=======
     })
         .catchError((_) =>
         APIResponse<ResponseModel>(
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
             error: true, errorMessage: 'An error occurred'));
   }
 
   Future<APIResponse<UserLogin>> loginUser(UserLogin item) {
-<<<<<<< HEAD
-    return http
-        .post(Uri.parse(API + '/login'),
-            headers: headers, body: json.encode(item.toJson()))
-        .then((data) {
-=======
     return http.post(Uri.parse(API + '/login'), headers: headers,
         body: json.encode(item.toJson())).then((data) {
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         return APIResponse<UserLogin>(data: UserLogin.fromJson(jsonData));
       }
       return APIResponse<UserLogin>(
           error: true, errorMessage: 'An error occurred');
-<<<<<<< HEAD
-    }).catchError((_) => APIResponse<UserLogin>(
-            error: true, errorMessage: 'An error occurred'));
-  }
-}
-=======
     })
         .catchError((_) =>
         APIResponse<UserLogin>(error: true, errorMessage: 'An error occurred'));
@@ -90,4 +62,3 @@ class RegisterService {
 
 
 }
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac

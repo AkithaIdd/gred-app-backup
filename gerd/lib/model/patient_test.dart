@@ -1,9 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-<<<<<<< HEAD
-=======
 
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
 class PatientTest {
   final int id;
   final String name;
@@ -15,8 +12,6 @@ class PatientTest {
   // final double damageLength;
 
   PatientTest({
-<<<<<<< HEAD
-=======
 
 // class Patient {
 //   final List<PatientList> patientList;
@@ -38,18 +33,11 @@ class PatientTest {
 
   // PatientList({
 
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
     @required this.id,
     @required this.name,
     @required this.age,
     @required this.phone,
     @required this.dob,
-<<<<<<< HEAD
-    // @required this.testDate,
-    // @required this.ageOfOnset,
-    // @required this.damageLength,
-  });
-=======
 
     // @required this.testDate,
     // @required this.ageOfOnset,
@@ -70,5 +58,5 @@ class PatientTest {
   //
   //   print("aaa"+name);
   // }
->>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
 }
+

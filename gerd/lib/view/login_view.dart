@@ -26,7 +26,6 @@ class _LoginViewState extends State<LoginView> {
   bool rememberPassword = true;
   String userName;
   String password;
-  bool _passwordVisible;
   ShowToast toast = new ShowToast();
   var _isLoading = false;
 
@@ -34,7 +33,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void initState() {
-    _passwordVisible = false;
     SystemChrome.setEnabledSystemUIOverlays([]);
     super.initState();
     // _initSteps();
@@ -100,7 +98,6 @@ class _LoginViewState extends State<LoginView> {
                           child: Column(
                             children: [
                               TextInputWithIcon(
-                                isObscure: false,
                                 icon: FontAwesomeIcons.solidUser,
                                 hint: ENTER_YOUR_USERNAME,
                                 inputType: TextInputType.name,
@@ -113,58 +110,18 @@ class _LoginViewState extends State<LoginView> {
                                   return null;
                                 },
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 8.0),
-                                child: Container(
-                                  height: size.height * 0.06,
-                                  width: size.width * 0.9,
-                                  decoration: BoxDecoration(
-                                    color: gray,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Center(
-                                    child: TextFormField(
-                                      style: middleTextStyle,
-                                      keyboardType: TextInputType.text,
-                                      controller: _passwordController,
-                                      obscureText:
-                                          !_passwordVisible, //This will obscure text dynamically
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Enter Your Password',
-                                        hintStyle: middleTextStyle,
-                                        prefixIcon: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10.0),
-                                          child: Icon(
-                                            FontAwesomeIcons.lock,
-                                            size: 18,
-                                            color: iconColor,
-                                          ),
-                                        ),
-                                        // Here is key idea
-                                        suffixIcon: IconButton(
-                                          icon: Icon(
-                                            // Based on passwordVisible state choose the icon
-                                            _passwordVisible
-                                                ? Icons.visibility
-                                                : Icons.visibility_off,
-                                            color: Theme.of(context)
-                                                .primaryColorDark,
-                                          ),
-                                          onPressed: () {
-                                            // Update the state i.e. toogle the state of passwordVisible variable
-                                            setState(() {
-                                              _passwordVisible =
-                                                  !_passwordVisible;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              TextInputWithIcon(
+                                icon: FontAwesomeIcons.lock,
+                                hint: ENTER_YOUR_PASSWORD,
+                                inputType: TextInputType.visiblePassword,
+                                inputAction: TextInputAction.done,
+                                textEditingController: _passwordController,
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return "Please enter name";
+                                  }
+                                  return null;
+                                },
                               ),
                               SizedBox(
                                 height: 20,
@@ -225,25 +182,6 @@ class _LoginViewState extends State<LoginView> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'forgotPassword');
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Heiniken',
-                          letterSpacing: 0.5,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
 
                   Row(children: <Widget>[
                     Expanded(
@@ -283,22 +221,22 @@ class _LoginViewState extends State<LoginView> {
                     height: 50,
                     decoration: BoxDecoration(color: primaryLight),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Version 1.0.2',
                           style: middleTextBlackStyle,
                         ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     Navigator.pushNamed(context, 'forgotPassword');
-                        //   },
-                        //   child: Text(
-                        //     'Forgot Password?',
-                        //     textAlign: TextAlign.center,
-                        //     style: middleTextBlackStyle,
-                        //   ),
-                        // )
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'forgotPassword');
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            textAlign: TextAlign.center,
+                            style: middleTextBlackStyle,
+                          ),
+                        )
                       ],
                     ),
                   )
