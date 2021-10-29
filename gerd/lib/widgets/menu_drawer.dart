@@ -36,6 +36,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
                             'assets/user.png',
                           ),
                         ),
+<<<<<<< HEAD
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 20),
@@ -49,6 +50,29 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 ),
               ),
               GestureDetector(
+=======
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text("akitha",
+                            // Preference.getString('username'),
+                            style: smallTextBlackBoldStyle,
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+              ListTile(
+                leading: Icon(
+                  FontAwesomeIcons.solidUser,
+                  color: Colors.blue[800],
+                  size: 30,
+                ),
+                title: const Text(
+                  'Profile',
+                  style: largeTextBlackBoldStyle,
+                ),
+
+>>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
                 onTap: () {
                   // Update the state of the app
                   Navigator.pushReplacementNamed(context, 'profile');

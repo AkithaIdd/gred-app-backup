@@ -41,10 +41,28 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       appBar: AppBar(),
       backgroundColor: background,
       body: Center(
         child: Container(
+=======
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.only(right: 20, left: 20),
+        height: 30,
+        decoration: BoxDecoration(color: primaryLight),
+      ),
+        appBar: AppBar(
+          centerTitle: true,
+          title: new Text(
+            "REGISTER",
+            style: TextStyle(fontWeight: FontWeight.bold, color: white),
+          ),
+        ),
+        backgroundColor: background,
+        body: Center(
+            child: Container(
+>>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
           padding: EdgeInsets.only(
             left: 15,
             right: 15,
@@ -56,19 +74,73 @@ class _RegisterPageState extends State<RegisterPage> {
                 ? Center(child: CircularProgressIndicator())
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        "Name",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
                       Padding(
+
                         padding: const EdgeInsets.only(
-                          bottom: 16,
-                        ),
-                        child: Text(
-                          "REGISTER",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
+                            bottom: 15),
+
+                        child: Container(
+                          height: 40,
+                          child: TextInputN(
+                            textEditingController: _name,
+                            hint: 'Enter your name',
+                            width: double.infinity,
+                            padding: 0,
+                            height: null,
+                            readonly: false,
+                            // validator: (String value) {
+                            //   if (value.isEmpty) {
+                            //     return "Please enter name";
+                            //   }
+                            //   return null;
+                            // },
+                          ),
                         ),
                       ),
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 15),
+                        child: Container(
+                          height: 40,
+                          child: TextInputN(
+                            textEditingController: _email,
+                            hint: 'Email',
+                            // hint: 'email',
+                            width: double.infinity,
+                            padding: 0,
+                            height: null,
+                            readonly: false,
+                            // validator: (String value) {
+                            //   if (value.isEmpty) {
+                            //     return "Please enter  email";
+                            //   }
+                            //   if (!RegExp(
+                            //           "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                            //       .hasMatch(value)) {
+                            //     return "Please enter valid email";
+                            //   }
+                            //   return null;
+                            // },
+                          ),
+                        ),
+                      ),
+<<<<<<< HEAD
                       Padding(
                         padding: const EdgeInsets.only(
                             bottom: 15, left: 10, right: 10),
@@ -153,13 +225,115 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                         ),
                       ),
+=======
+                      Text(
+                        "Password",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 15),
+                        child: Container(
+                          height: 40,
+                          child: TextInputN(
+                            textEditingController: _password,
+                            hint: 'Password',
+                            width: double.infinity,
+                            padding: 0,
+                            height: null,
+                            readonly: false,
+                            // validator: (String value) {
+                            //   if (value.isEmpty) {
+                            //     return "Please enter password";
+                            //   }
+                            //   if (value.length < 8) {
+                            //     return "Please choose a password with at least 8 characters";
+                            //   }
+                            //   return null;
+                            // },
+                          ),
+                        ),
+                      ),
+
+                      Text(
+                        "Confirm Password",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 15),
+                        child: Container(
+                          height: 40,
+                          child: TextInputN(
+                            textEditingController: _password,
+                            hint: 'Password',
+                            width: double.infinity,
+                            padding: 0,
+                            height: null,
+                            readonly: false,
+                            // validator: (String value) {
+                            //   if (value.isEmpty) {
+                            //     return "Please enter password";
+                            //   }
+                            //   if (value.length < 8) {
+                            //     return "Please choose a password with at least 8 characters";
+                            //   }
+                            //   return null;
+                            // },
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "Phone Number",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 15),
+                        child: Container(
+                          height: 40,
+                          child: TextInputN(
+                            textEditingController: _phone,
+                            hint: 'Phone Number',
+                            width: double.infinity,
+                            padding: 0,
+                            height: null,
+                            readonly: false,
+                            // validator: (String value) {
+                            //   if (value.isEmpty) {
+                            //     return "Please enter  phone";
+                            //   }
+                            //   if (value.length != 10) {
+                            //     return "Please enter valid phone";
+                            //   }
+                            //   return null;
+                            // },
+                          ),
+                        ),
+                      ),
+
+>>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
                       CheckboxListTile(
                         title: GestureDetector(
                           onTap: () {
                             // Navigator.pushNamed(context, 'register');
                           },
+<<<<<<< HEAD
                           child: Text('Terms & Conditions',
                               textAlign: TextAlign.center,
+=======
+                          child: Text('I Agree to Gerd Terms & Conditions',
+                              textAlign: TextAlign.start,
+>>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
                               style: smallTextUnderLineBlackStyle),
                         ),
                         value: checkedValue,
@@ -181,11 +355,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         widthInc: 0.9,
                         heightInc: 0.07,
                       ),
+<<<<<<< HEAD
+=======
+
+>>>>>>> bbfa05694915d16a1aa1d4fdf4e6dcc7ca4429ac
                     ],
+
                   ),
           ),
-        ),
-      ),
+        ))
+
     );
   }
 
