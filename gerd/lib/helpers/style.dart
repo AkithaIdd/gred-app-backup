@@ -53,7 +53,8 @@ const TextStyle small14WhiteTextStyle = TextStyle(
 
 const middleWhiteTextStyle = TextStyle(
   color: Colors.white,
-  fontWeight: FontWeight.w400,
+
+  fontWeight: FontWeight.bold,
   fontFamily: 'Heiniken',
   letterSpacing: 0.5,
   fontSize: 16,

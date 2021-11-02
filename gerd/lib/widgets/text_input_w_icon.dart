@@ -18,11 +18,13 @@ class TextInputWRightIcon extends StatelessWidget {
     this.textEditingController,
     this.onTap,
     this.onChanged,
-    this.isReadOnly
+    this.isReadOnly,
+    this.iconImage,
   }) : super(key: key);
 
   final String hint;
   final IconData icon;
+  final String iconImage;
   final TextInputType inputType;
   final TextInputAction inputAction;
   final Color backgroundColor;
@@ -61,8 +63,8 @@ class TextInputWRightIcon extends StatelessWidget {
           hintStyle: middleTextStyle,
           suffixIcon: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Icon(
-              icon,
+            child: ImageIcon(
+              AssetImage(iconImage),
               size: 18,
               color: iconColor,
             ),

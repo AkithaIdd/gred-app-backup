@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,9 @@ class AddPatient extends StatefulWidget {
 
   @override
   _AddPatientState createState() => _AddPatientState();
+
+  static _AddPatientState of(BuildContext context) =>
+      context.findAncestorStateOfType<_AddPatientState>();
 }
 
 class _AddPatientState extends State<AddPatient> {
@@ -54,10 +58,6 @@ class _AddPatientState extends State<AddPatient> {
 
   final List<PatientRecord> patients = [];
 
-  // pId paID = Preference.getString('patientId');
-  // String paID = Preference.getString('patientId');
-
-  // pId patId = pId(patientId: Preference.getString('patientId'));
 
   TextEditingController _phoneNoController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -105,16 +105,18 @@ class _AddPatientState extends State<AddPatient> {
     });
 
     _dobController.addListener(_ageCalculate);
-    pId patId = pId(patientId: Preference.getString('id'));
 
-    _apiResponse = await getPatientRecordsService.getPatientRecordsList(patId);
+    GetPatientRecords pId = new GetPatientRecords(patientId: widget.id);
+    String token = 'Bearer' + " " + Preference.getString('token');
+    _apiResponse =
+        await getPatientRecordsService.getPatientRecordsList(pId, token);
 
     setState(() {
       _isLoading = false;
     });
     if (widget.isNewPatient) {
       isNewPatients = true;
-    }else{
+    } else {
       isNewPatients = false;
     }
   }
@@ -163,7 +165,7 @@ class _AddPatientState extends State<AddPatient> {
     });
   }
 
-  void _addNew_patient(BuildContext context) {
+  void _addNewPatientRecord(BuildContext context) {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -171,20 +173,41 @@ class _AddPatientState extends State<AddPatient> {
           return Padding(
             padding: MediaQuery.of(context).viewInsets,
             child: GestureDetector(
-              onTap: () {},
-              child: NewPatientRecord(),
+              onTap: () {
+              },
+              child: NewPatientRecord(pid: widget.id,callback: (val) => setState(() {_fetchPatientRecords();})),
+
             ),
           );
         });
+
+
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
       appBar: AppBar(
-        title: Text(
-          widget.isNewPatient == false ? 'Patient Details' : 'Add New Patient',
+        leading: IconButton(icon:Image.asset('assets/back.png'),
+        onPressed: () =>  Navigator.of(context).pop(),),
+        actions: [],
+        title: Column(
+          children: [
+            Text(
+              widget.isNewPatient == false ? 'PATIENT' : 'Add New Patient',
+              style: middleWhiteTextStyle,
+            ),
+            Visibility(
+              visible: isNewPatients == false,
+              child: Text(widget.isNewPatient == false ? widget.pname : '',
+
+                style: smallWhiteTextStyle,
+              ),
+            ),
+
+          ],
         ),
         centerTitle: true,
       ),
@@ -285,7 +308,7 @@ class _AddPatientState extends State<AddPatient> {
                         inputAction: null,
                         backgroundColor: Colors.white,
                         icon: FontAwesomeIcons.calendar,
-                        width: double.infinity,
+                        width:double.infinity,
                         padding: 0,
                         height: 36,
                         readonly: true,
@@ -337,6 +360,9 @@ class _AddPatientState extends State<AddPatient> {
             ),
 
             Visibility(
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
               visible: isNewPatients == false,
               child: Column(
                 children: [
@@ -363,8 +389,15 @@ class _AddPatientState extends State<AddPatient> {
                     height: size_16,
                   ),
                   InkWell(
-                    onTap: () {
-                      _addNew_patient(context);
+                    onTap: ()  {
+                       _addNewPatientRecord(context);
+                       setState(() {
+                         // if(_reload == 'reload'){
+                         //   _fetchPatientRecords();
+                         // }
+                       });
+
+
                     },
                     child: Card(
                       color: Colors.lightBlue[100],
@@ -374,13 +407,13 @@ class _AddPatientState extends State<AddPatient> {
                         children: <Widget>[
                           Container(
                             width: double.infinity,
-                            height: 70,
+                            height: 60,
                             // height: 200,
                             // width: 200,
                             child: Container(
-                              padding: EdgeInsets.all(20),
+                              padding: EdgeInsets.all(15),
                               child: Image.asset(
-                                'assets/plus.png',
+                                'assets/plus Add New Patient.png',
                                 fit: BoxFit.fitHeight,
                               ),
                             ),
@@ -412,6 +445,9 @@ class _AddPatientState extends State<AddPatient> {
 
             // NewPatientRecordList(),
             Visibility(
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
               visible: isNewPatients == false,
               child: Builder(
                 builder: (_) {
@@ -423,153 +459,150 @@ class _AddPatientState extends State<AddPatient> {
                     return Center(child: Text(_apiResponse.errorMessage));
                   }
 
-                  return Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        // separatorBuilder: (_, __) => Divider(
-                        //   height: 10,
-                        // ),
-                        itemBuilder: (_, index) {
-                          return GestureDetector(
-                            onTap: () {},
-                            child: Card(
-                              key: ValueKey(_apiResponse.data[index].patientId),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 10, 0, 5),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Date Of Test: ',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey,
-                                              ),
+                  return SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      // separatorBuilder: (_, __) => Divider(
+                      //   height: 10,
+                      // ),
+                      itemBuilder: (_, index) {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Card(
+                            key: ValueKey(_apiResponse.data[index].patientId),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 10, 0, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Date Of Test: ',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
                                             ),
-                                            Text(
-                                              _apiResponse
-                                                  .data[index].date_of_test,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          Text(DateFormat('yyyy-MMM-dd').format(DateFormat("yyyy-MM-dd").parse(_apiResponse.data[index].date_of_test)),
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 5, 0, 5),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Length Of LES Damage: ',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 5, 0, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Length Of LES Damage: ',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            Text(
-                                              _apiResponse
-                                                  .data[index].length_of_les,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          Text(
+                                            _apiResponse
+                                                .data[index].length_of_les + "mm",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  Image(image: AssetImage('assets/chart.png'),
-                                  width: 10,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      // InkWell(
-                                      //   onTap: () {
-                                      //     Preference.setString(
-                                      //       'name',
-                                      //       _apiResponse.data[index].name,
-                                      //     );
-                                      //     Navigator.pushNamed(
-                                      //         context, 'addPatient');
-                                      //   },
-                                      // ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 5, 10, 5),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Age: ',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey,
-                                              ),
+                                    ),
+                                  ],
+                                ),
+                                Image(
+                                  image: AssetImage('assets/chart.png'),
+                                  width: 30,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    // InkWell(
+                                    //   onTap: () {
+                                    //     Preference.setString(
+                                    //       'name',
+                                    //       _apiResponse.data[index].name,
+                                    //     );
+                                    //     Navigator.pushNamed(
+                                    //         context, 'addPatient');
+                                    //   },
+                                    // ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(0, 5, 10, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Age: ',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
                                             ),
-                                            Text(
-                                              _ageController.text,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          Text(
+                                            _ageController.text,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 5, 10, 5),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Onset: ',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(0, 5, 10, 5),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Onset: ',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            Text(
-                                              _apiResponse
-                                                  .data[index].age_of_onset,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          Text(
+                                            _apiResponse
+                                                .data[index].age_of_onset,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                        itemCount: _apiResponse.data.length,
-                      ),
+                          ),
+                        );
+                      },
+                      itemCount: _apiResponse.data.length,
                     ),
                   );
                 },
@@ -582,7 +615,7 @@ class _AddPatientState extends State<AddPatient> {
                   buttonName: 'Save',
                   onTap: () {
                     if (widget.isNewPatient == true) {
-                      _addNew_patient(context);
+                      _addNewPatientRecord(context);
                     } else {
                       addPatient();
                     }

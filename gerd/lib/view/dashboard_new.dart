@@ -13,6 +13,7 @@ import 'package:gerd/view/add_patient_view.dart';
 import 'package:gerd/widgets/menu_drawer.dart';
 import 'package:gerd/widgets/widgets.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key key}) : super(key: key);
@@ -148,9 +149,8 @@ class _DashboardState extends State<Dashboard> {
                           padding: 0,
                           height: 36,
                           isReadOnly: false,
-                          icon: Icons.search,
+                          iconImage: 'assets/search.png'),
                           // textEditingController: _searchController,
-                        ),
 
                       ],
                     ),
@@ -259,8 +259,8 @@ class _DashboardState extends State<Dashboard> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Text(
-                                            _apiResponse.data[index].dob,
+                                          Text(DateFormat('dd-MM-yyyy').format(DateFormat("yyyy-MM-dd").parse(_apiResponse.data[index].dob))
+                                            ,
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
@@ -283,7 +283,7 @@ class _DashboardState extends State<Dashboard> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Text(
+                                          Text('+'+
                                             _apiResponse.data[index].phone
                                                 .toString(),
                                             style: TextStyle(

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class PatientRecord {
-  String patientId;
+  int patientId;
   String date_of_test;
   String age_of_onset;
   String length_of_les;

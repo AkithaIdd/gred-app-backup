@@ -145,23 +145,26 @@ class _LoginViewState extends State<LoginView> {
                             ],
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: rememberUser,
-                              onChanged: (value) {
-                                setState(() async {
-                                  rememberUser = value;
-                                  Preference.setBool('rememberUser', null);
-                                });
+                        SizedBox(
+                          width: 250,
+                          child: CheckboxListTile(
+                            title: GestureDetector(
+                              onTap: () {
+                                // Navigator.pushNamed(context, 'register');
                               },
+                              child: Text('Remember Password',
+                                  textAlign: TextAlign.center,
+                                  style: smallTextUnderLineBlackStyle),
                             ),
-                            Text(
-                              REMEMBER_PASSWORD,
-                              style: smallTextBlackStyle,
-                            ),
-                          ],
+                            value: rememberPassword,
+                            onChanged: (newValue) {
+                              setState(() {
+                                rememberPassword = newValue;
+                              });
+                            },
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

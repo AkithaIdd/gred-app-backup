@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-class pId {
-  String patientId;
+class GetPatientRecords {
+  int patientId;
 
-  pId({
+  GetPatientRecords({
     @required this.patientId,
   });
 

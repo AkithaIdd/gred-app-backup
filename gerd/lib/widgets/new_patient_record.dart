@@ -25,12 +25,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:gerd/widgets/button.dart';
 import 'package:gerd/widgets/show_dialog.dart';
 import 'package:gerd/widgets/snack_bar.dart';
-
+typedef void StringCallback(String val);
 class NewPatientRecord extends StatefulWidget {
   const NewPatientRecord({
+
     Key key,
+    this.pid,
+    this.callback,
     // this.dob
   }) : super(key: key);
+
+  final int pid;
+  final StringCallback callback;
 
   // final DateTime dob;
 
@@ -40,8 +46,10 @@ class NewPatientRecord extends StatefulWidget {
 
 class _NewPatientRecordState extends State<NewPatientRecord> {
   DateTime _selectedTestDate;
+
   AddPatientRecordService get addPatientRecordService =>
       GetIt.instance<AddPatientRecordService>();
+
   GetPatientRecordsListService get getPatientRecordsService =>
       GetIt.instance<GetPatientRecordsListService>();
 
@@ -64,9 +72,11 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
       _isLoading = true;
     });
 
-    pId patId = pId(patientId: Preference.getString('id'));
 
-    _apiResponse = await getPatientRecordsService.getPatientRecordsList(patId);
+    GetPatientRecords pId = new GetPatientRecords(patientId: widget.pid);
+    String token = 'Bearer' + " " + Preference.getString('token');
+    _apiResponse =
+    await getPatientRecordsService.getPatientRecordsList(pId, token);
 
     // setState(() {
     //   _isLoading = false;
@@ -205,6 +215,7 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
                 onTap: () {
                   setState(() {
                     addPatientRecord();
+
                   });
 
                   // Navigator.of(context).pop();
@@ -230,15 +241,16 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
     });
     String token = 'Bearer' + " " + Preference.getString('token');
 
-    toast.showToast('Patient Record Added Succesfully');
+    // toast.showToast('Patient Record Added Succesfully');
     final register = PatientRecord(
-      patientId: Preference.getString('id'),
+      patientId: widget.pid,
       length_of_les: _lengthController.text,
       age_of_onset: _onsetController.text,
       date_of_test: _testController.text,
     );
     final result =
         await addPatientRecordService.addPatientRecord(register, token);
+    //
 
     setState(() {
       _isLoading = false;
@@ -253,8 +265,8 @@ class _NewPatientRecordState extends State<NewPatientRecord> {
       SnackBarWidget.buildSnackbar(context, result.error);
     } else {
       if (result.data.status == 200) {
-        Navigator.pop(context, true);
-        _fetchPatientRecords();
+          Navigator.pop(context,true);
+          widget.callback('reload') ;
       } else {
         showSnackBar(result.data.message);
       }

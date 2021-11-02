@@ -15,14 +15,14 @@ import 'package:http/http.dart' as http;
 class GetPatientRecordsListService {
   static const API = BaseUrl;
 
-  Future<APIResponse<List<PatientRecord>>> getPatientRecordsList(pId item) {
+  Future<APIResponse<List<PatientRecord>>> getPatientRecordsList(GetPatientRecords item,String token) {
     return http
         .post(
       Uri.parse(API + '/getPatientRecords'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer' + " " + Preference.getString('token'),
+        'Authorization': '$token',
       },
       body: json.encode(
         item.toJson(),
@@ -35,7 +35,7 @@ class GetPatientRecordsListService {
         for (var item in jsonData['patientRecordList']) {
           final patientRecord = PatientRecord(
             date_of_test: item['date_of_test'],
-            patientId: item['patientId'].toString(),
+            patientId: item['patientId'],
             age_of_onset: item['age_of_onset'].toString(),
             length_of_les: item['length_of_les'].toString(),
           );
